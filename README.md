@@ -64,6 +64,8 @@ width                | number | 280           | width of the slider
 direction            | number | 1             | clockwise (**1**) or anticlockwise (**-1**)
 min                  | number | 0             | smallest value
 max                  | number | 360           | largest value
+limit                | number | 360           | maximum angle
+offsetAngle          | number | -45           | offset angle
 data                 | array  | []            | array of data to be spread in 360°
 dataIndex            | number | 0             | initially place knob at a certain value in the array
 knobColor            | string | #4e63ea       | knob color

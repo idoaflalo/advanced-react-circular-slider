@@ -17,3 +17,10 @@ pre {
   white-space: pre-wrap;
   color: #272b77;
 }
+
+.progress-line:after{
+  content: '';
+  position: relative;
+  width: 10px;
+  height: 2px;
+}
