@@ -24,6 +24,7 @@ const Svg = ({
   offsetAngle,
   data,
   activedItem,
+  onLableClick
 }) => {
   const styles = {
     svg: {
@@ -47,7 +48,8 @@ const Svg = ({
       cursor: "pointer"
     },
     activedTitle: {
-      fill: activedlabelColor
+      fill: activedlabelColor,
+      transition: "all 0.6s ease-in-out"
     }
   };
 
@@ -156,7 +158,9 @@ const Svg = ({
             }%`}
             key={key}
           >
-            <tspan dy="5" style={(key === activedItem && styles.activedTitle)||{}}>
+            <tspan dy="5" style={(key === activedItem && styles.activedTitle)||{}}
+              onClick={()=>onLableClick(key)}
+            >
               {item.value}
             </tspan>
           </textPath>

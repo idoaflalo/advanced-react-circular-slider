@@ -1,7 +1,5 @@
 import React from "react";
 import CircularSlider from "./CircularSlider";
-import { ReactComponent as DragIcon } from "./assets/drag.svg";
-import { ReactComponent as EmojiIcon } from "./assets/emoji.svg";
 
 const App = () => {
   const styles = {
@@ -65,15 +63,15 @@ const App = () => {
         </CircularSlider>
       </div>
       <pre className={styles.pre}>
-        {`<CircularSlider
-    min={0}
-	max={360}
-	limit={270}
-	offsetAngle={-45}
-    direction={1}
-    knobPosition="bottom"
-    appendToValue="°"
-    valueFontSize="4rem"
+{`<CircularSlider
+  min={0}
+  max={360}
+  limit={270}
+  offsetAngle={-45}
+  direction={1}
+  knobPosition="bottom"
+  appendToValue="°"
+  valueFontSize="4rem"
 />`}
       </pre>
       <h3 className={styles.h3}>

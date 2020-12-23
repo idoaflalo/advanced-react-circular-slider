@@ -43,6 +43,7 @@ const styles = {
     display: "inline-block",
     opacity: 0,
     transition: "opacity 1s ease-in",
+    margin: '45px'
   },
 
   mounted: {
@@ -294,6 +295,10 @@ const CircularSlider = ({
         activedlabelColor={activedlabelColor}
         data={data}
         activedItem={activedItem}
+        onLableClick={(id)=> {
+          setActived(id);
+          updateState(Math.random());
+        }}
       />
       {knobDraggable && (
         <Knob
