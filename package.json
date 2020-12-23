@@ -1,11 +1,11 @@
 {
-  "name": "@fseehawer/react-circular-slider",
+  "name": "@jsdev63/advanced_react-circular-slider",
   "version": "2.3.5",
-  "description": "A customizable circular slider with no dependencies.",
+  "description": "Advanced circular slider with no dependencies.",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fseehawer/react-circular-slider.git"
+    "url": "git+https://github.com/jsdev63/advanced_react-circular-slider.git"
   },
   "keywords": [
     "react slider",
@@ -19,12 +19,12 @@
     "slider",
     "react hooks"
   ],
-  "author": "Fidel Seehawer",
+  "author": "JSDEV63",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fseehawer/react-circular-slider/issues"
+    "url": "https://github.com/jsdev63/advanced_react-circular-slider/issues"
   },
-  "homepage": "https://fseehawer.github.io/react-circular-slider/",
+  "homepage": "https://jsdev63.github.io/advanced_react-circular-slider/",
   "peerDependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
