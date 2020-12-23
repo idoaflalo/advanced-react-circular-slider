@@ -18,6 +18,9 @@ const Svg = ({
   svgFullPath,
   radiansOffset,
   progressLineCap,
+  offsetAngle,
+  data,
+  activedItem,
 }) => {
   const styles = {
     svg: {
@@ -31,11 +34,22 @@ const Svg = ({
       }`,
       transformOrigin: "center center",
     },
+    label: {
+      transform: "translateY(40px)",
+    },
+    text: {
+      textAnchor: "middle",
+      fontSize: "22.5",
+      fill: "blue",
+    },
   };
 
   const halfTrack = trackSize / 2;
   const maxValue = (strokeDasharray * (360 - limit)) / 360;
-
+  const curveRadian = width / 2 + 30;
+  const angleUnit = data ? limit / (data.length) : 1;
+  console.log(angleUnit, offsetAngle)
+  offsetAngle = 0;
   return (
     <svg
       width={`${width}px`}
@@ -72,10 +86,10 @@ const Svg = ({
       />
       <path
         style={styles.path}
-        strokeDasharray={strokeDasharray*0.9}
-        strokeDashoffset={strokeDashoffset*0.9}
+        strokeDasharray={strokeDasharray * 0.9}
+        strokeDashoffset={strokeDashoffset * 0.9}
         strokeWidth={progressSize}
-        strokeLinecap={'flat'}
+        strokeLinecap={"flat"}
         fill="none"
         stroke={doubleLineColor}
         d={`
@@ -109,6 +123,35 @@ const Svg = ({
         }
         `}
       />
+
+      <path
+        id="myTextPath"
+        d={`
+          M ${curveRadian},${curveRadian} m ${-curveRadian}, 0  
+          A ${curveRadian},${curveRadian} 0 0 1 0,${curveRadian} 
+          A ${curveRadian},${curveRadian} 0 0 1 -${curveRadian},0 
+          A ${curveRadian},${curveRadian} 0 0 1 0,-${curveRadian} 
+          A ${curveRadian},${curveRadian} 0 0 1 0,${curveRadian}
+        `}
+        transform={`translate(${width / 2},${width / 2})`}
+        fill="none"
+        stroke="none"
+      />
+
+      <text style={styles.text}>
+        {/* <tspan dy="5"> */}
+        {/* </tspan> */}
+        {data?.map((item, key) => (
+          <textPath
+            xlinkHref="#myTextPath"
+            dy="5"
+            startOffset={`${(angleUnit * (key) - offsetAngle)/3.6}%`}
+            key={key}
+          >
+            {item.value}
+          </textPath>
+        ))}
+      </text>
     </svg>
   );
 };

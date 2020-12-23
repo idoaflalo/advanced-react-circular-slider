@@ -6,6 +6,7 @@ import useEventListener from "../hooks/useEventListener";
 import useIsServer from "../hooks/useIsServer";
 import Knob from "../Knob";
 import Labels from "../Labels";
+import LabelTitle from "../Labels/label";
 import Svg from "../Svg";
 
 const spreadDegrees = 360;
@@ -57,7 +58,7 @@ const CircularSlider = ({
   min = 0,
   max = 360,
   limit = 360,
-  offsetAngle = -45,
+  offsetAngle = 0,
   knobColor = "#4e63ea",
   knobSize = 36,
   knobPosition = "top",
@@ -81,6 +82,7 @@ const CircularSlider = ({
   dataIndex = 0,
   progressLineCap = "round",
   renderLabelValue = null,
+  cursor,
   children,
   onChange = (value) => {},
 }) => {
@@ -112,6 +114,7 @@ const CircularSlider = ({
     MOVE: touchSupported ? "touchmove" : "mousemove",
   };
   const [activedItem, setActived] = React.useState(null);
+  const [updatedKey, updateState] = React.useState(null);
 
   const setKnobPosition = useCallback(
     (radians) => {
@@ -133,14 +136,13 @@ const CircularSlider = ({
       const dashOffset = (degrees / spreadDegrees) * state.dashFullArray;
       degrees =
         getSliderRotation(direction) === -1 ? spreadDegrees - degrees : degrees;
-        console.log("degrees", degrees)
 
-      const pointsInCircle = (state.data.length - 1) / spreadDegrees;
+      const pointsInCircle = (state.data.length) / spreadDegrees;
       const currentPoint = Math.round(degrees * pointsInCircle);
-      console.log("===",currentPoint, pointsInCircle)
+
       if (state.data[currentPoint] !== state.label) {
         // props callback for parent
-        setActived(state.data[currentPoint]);
+        setActived(currentPoint);
         onChange(state.data[currentPoint]);
       }
 
@@ -159,7 +161,18 @@ const CircularSlider = ({
         },
       });
     },
-    [offsetAngle, limit, state.dashFullArray, state.radius, state.data, state.label, knobPosition, trackSize, direction, onChange]
+    [
+      offsetAngle,
+      limit,
+      state.dashFullArray,
+      state.radius,
+      state.data,
+      state.label,
+      knobPosition,
+      trackSize,
+      direction,
+      onChange,
+    ]
   );
 
   const onMouseDown = () => {
@@ -178,7 +191,10 @@ const CircularSlider = ({
         isDragging: false,
       },
     });
-    console.log("==========", activedItem)
+
+    setTimeout(() => {
+      updateState(Math.random());
+    }, 200);
   };
 
   const onMouseMove = useCallback(
@@ -238,9 +254,11 @@ const CircularSlider = ({
 
   // Set knob position
   useEffect(() => {
+    let updatedIndex = activedItem === null ? dataIndex : activedItem;
+    console.log("effect ----->", updatedIndex);
     const dataArrayLength = state.data.length;
     const knobPositionIndex =
-      dataIndex > dataArrayLength - 1 ? dataArrayLength - 1 : dataIndex;
+      updatedIndex > dataArrayLength - 1 ? dataArrayLength - 1 : updatedIndex;
 
     if (!!dataArrayLength) {
       const pointsInCircle = spreadDegrees / dataArrayLength;
@@ -280,6 +298,7 @@ const CircularSlider = ({
     state.data.length,
     dataIndex,
     direction,
+    updatedKey,
   ]);
 
   useEventListener(SLIDER_EVENT.MOVE, onMouseMove);
@@ -309,6 +328,9 @@ const CircularSlider = ({
         trackColor={trackColor}
         trackSize={trackSize}
         radiansOffset={state.radians}
+        offsetAngle={offsetAngle}
+        data={data}
+        activedItem={activedItem}
       />
       {knobDraggable && (
         <Knob
@@ -320,10 +342,10 @@ const CircularSlider = ({
           hideKnob={hideKnob}
           onMouseDown={onMouseDown}
         >
-          {children}
+          {cursor}
         </Knob>
       )}
-      {renderLabelValue || (
+      {renderLabelValue && (
         <Labels
           label={label}
           labelColor={labelColor}
@@ -337,6 +359,11 @@ const CircularSlider = ({
           value={`${state.label}`}
         />
       )}
+      {/* {children} */}
+    
+        {/* <div key={index} className="circual-slider-label">
+          <span>{item.value}</span>
+        </div> */}
     </div>
   );
 };

@@ -33,19 +33,43 @@ const App = () => {
       </h3>
       <div style={styles.slider}>
         <CircularSlider
-		  limit={270}
-		  offsetAngle={-45}
-		  direction={1}
-		  data={[1,2,3,4,5,6]}
+          // limit={270}
+          // offsetAngle={-45}
+          direction={1}
+          data={[
+            {
+              key: 1,
+              value: "start",
+            },
+            {
+              key: 1,
+              value: "test",
+            },
+            {
+              key: 1,
+              value: "test",
+            },
+            {
+              key: 1,
+              value: "test",
+            },
+            {
+              key: 1,
+              value: "end",
+            },
+          ]}
           knobPosition="bottom"
           appendToValue="°"
-		  valueFontSize="4rem"
-		  progressLineCap="flat"
-		  progressSize={24}
+          valueFontSize="4rem"
+          renderLabelValue={false}
+          progressLineCap="flat"
+          progressSize={24}
           trackColor="#eeeeee"
           trackSize={24}
-		  onChange={(e)=>console.log(e)}
-        />
+          // cursor={<DragIcon x="22" y="22" width="28px" height="28px" />}
+        >
+          {/* <div>fwefkweofkwoefkwoekfowek</div> */}
+        </CircularSlider>
       </div>
       <pre className={styles.pre}>
         {`<CircularSlider
@@ -64,7 +88,7 @@ const App = () => {
         a custom knob icon and the label on the bottom:
       </h3>
       <div className={styles.slider}>
-        <CircularSlider
+        {/* <CircularSlider
           label="savings account"
           min={0}
           max={100}
@@ -82,7 +106,7 @@ const App = () => {
           trackSize={24}
         >
           <DragIcon x="22" y="22" width="28px" height="28px" />
-        </CircularSlider>
+        </CircularSlider> */}
       </div>
       <pre className={styles.pre}>
         {`import { ReactComponent as PowerIcon } from './assets/power.svg';
@@ -114,7 +138,7 @@ const App = () => {
         and a smiley knob:
       </h3>
       <div className={styles.slider}>
-        <CircularSlider
+        {/* <CircularSlider
           label="Alphabet"
           progressLineCap="flat"
           dataIndex={1}
@@ -132,7 +156,7 @@ const App = () => {
           data={"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")}
         >
           <EmojiIcon x="9" y="9" width="18px" height="18px" />
-        </CircularSlider>
+        </CircularSlider> */}
       </div>
       <pre className={styles.pre}>
         {`
