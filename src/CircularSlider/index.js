@@ -111,6 +111,7 @@ const CircularSlider = ({
     UP: touchSupported ? "touchend" : "mouseup",
     MOVE: touchSupported ? "touchmove" : "mousemove",
   };
+  const [activedItem, setActived] = React.useState(null);
 
   const setKnobPosition = useCallback(
     (radians) => {
@@ -121,24 +122,25 @@ const CircularSlider = ({
         (offsetRadians > 0 ? offsetRadians : 2 * Math.PI + offsetRadians) *
         (spreadDegrees / (2 * Math.PI));
 
-
-        if (knobPosition === "bottom" && degrees > limit) {
-          return true;
-        }
-        if (knobPosition === "top" && degrees < 360 - limit) {
-          degrees = 360 - limit;
-          return true;
-        }
+      if (knobPosition === "bottom" && degrees > limit) {
+        return true;
+      }
+      if (knobPosition === "top" && degrees < 360 - limit) {
+        degrees = 360 - limit;
+        return true;
+      }
       // change direction
       const dashOffset = (degrees / spreadDegrees) * state.dashFullArray;
       degrees =
         getSliderRotation(direction) === -1 ? spreadDegrees - degrees : degrees;
+        console.log("degrees", degrees)
 
       const pointsInCircle = (state.data.length - 1) / spreadDegrees;
       const currentPoint = Math.round(degrees * pointsInCircle);
-
+      console.log("===",currentPoint, pointsInCircle)
       if (state.data[currentPoint] !== state.label) {
         // props callback for parent
+        setActived(state.data[currentPoint]);
         onChange(state.data[currentPoint]);
       }
 
@@ -157,18 +159,7 @@ const CircularSlider = ({
         },
       });
     },
-    [
-      limit,
-      max,
-      state.dashFullArray,
-      state.radius,
-      state.data,
-      state.label,
-      knobPosition,
-      trackSize,
-      direction,
-      onChange,
-    ]
+    [offsetAngle, limit, state.dashFullArray, state.radius, state.data, state.label, knobPosition, trackSize, direction, onChange]
   );
 
   const onMouseDown = () => {
@@ -187,6 +178,7 @@ const CircularSlider = ({
         isDragging: false,
       },
     });
+    console.log("==========", activedItem)
   };
 
   const onMouseMove = useCallback(
@@ -257,7 +249,8 @@ const CircularSlider = ({
       dispatch({
         type: "setInitialKnobPosition",
         payload: {
-          radians: Math.PI / 2 - getOffsetRideans(state.knobPosition, offsetAngle),
+          radians:
+            Math.PI / 2 - getOffsetRideans(state.knobPosition, offsetAngle),
           offset,
         },
       });
@@ -265,12 +258,17 @@ const CircularSlider = ({
       if (knobPositionIndex) {
         const degrees =
           getSliderRotation(direction) * knobPositionIndex * pointsInCircle;
-        const radians = getRadians(degrees) - getOffsetRideans(state.knobPosition, offsetAngle);
+        const radians =
+          getRadians(degrees) -
+          getOffsetRideans(state.knobPosition, offsetAngle);
 
         return setKnobPosition(radians + offset * getSliderRotation(direction));
       }
       setKnobPosition(
-        -(getOffsetRideans(state.knobPosition, offsetAngle) * getSliderRotation(direction)) +
+        -(
+          getOffsetRideans(state.knobPosition, offsetAngle) *
+          getSliderRotation(direction)
+        ) +
           offset * getSliderRotation(direction)
       );
     }

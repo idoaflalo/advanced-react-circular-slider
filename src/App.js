@@ -35,7 +35,8 @@ const App = () => {
         <CircularSlider
 		  limit={270}
 		  offsetAngle={-45}
-          direction={1}
+		  direction={1}
+		  data={[1,2,3,4,5,6]}
           knobPosition="bottom"
           appendToValue="°"
 		  valueFontSize="4rem"
