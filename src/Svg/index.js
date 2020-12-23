@@ -6,6 +6,9 @@ const Svg = ({
   limit,
   max,
   label,
+  labelColor,
+  labelFontSize,
+  activedlabelColor,
   direction,
   strokeDasharray,
   strokeDashoffset,
@@ -39,17 +42,20 @@ const Svg = ({
     },
     text: {
       textAnchor: "middle",
-      fontSize: "22.5",
-      fill: "blue",
+      fontSize: labelFontSize,
+      fill: labelColor,
+      cursor: "pointer"
     },
+    activedTitle: {
+      fill: activedlabelColor
+    }
   };
 
   const halfTrack = trackSize / 2;
   const maxValue = (strokeDasharray * (360 - limit)) / 360;
   const curveRadian = width / 2 + 30;
-  const angleUnit = data ? limit / (data.length) : 1;
-  console.log(angleUnit, offsetAngle)
-  offsetAngle = 0;
+  const angleUnit = data ? limit / data.length : 1;
+
   return (
     <svg
       width={`${width}px`}
@@ -145,10 +151,14 @@ const Svg = ({
           <textPath
             xlinkHref="#myTextPath"
             dy="5"
-            startOffset={`${(angleUnit * (key) - offsetAngle)/3.6}%`}
+            startOffset={`${
+              (angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6
+            }%`}
             key={key}
           >
-            {item.value}
+            <tspan dy="5" style={(key === activedItem && styles.activedTitle)||{}}>
+              {item.value}
+            </tspan>
           </textPath>
         ))}
       </text>

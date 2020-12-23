@@ -10,8 +10,7 @@ const LabelTitle = ({
   prependToValue,
   verticalOffset,
   hideLabelValue,
-  label,
-  value,
+  label
 }) => {
   const styles = {
     title: {
@@ -74,7 +73,7 @@ const LabelTitle = ({
   return (
     <div style={styles.title}>
       <h2 style={styles.value} id="myElement">
-        {value.split("").map((char, key) => (
+        {label.split("").map((char, key) => (
           <span key={key}>{char}</span>
         ))}
       </h2>
@@ -83,8 +82,7 @@ const LabelTitle = ({
 };
 
 LabelTitle.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  label: PropTypes.string | PropTypes.object,
   labelColor: PropTypes.string,
   labelBottom: PropTypes.bool,
   labelFontSize: PropTypes.string,

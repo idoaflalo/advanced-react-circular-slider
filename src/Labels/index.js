@@ -10,8 +10,7 @@ const Labels = ({
 	prependToValue,
 	verticalOffset,
 	hideLabelValue,
-	label,
-	value,
+	label
 }) => {
 	const styles = {
 		labels: {
@@ -57,6 +56,8 @@ const Labels = ({
 		},
 	};
 
+	console.log(label)
+
 	return (
 		<div style={{ ...styles.labels, ...(hideLabelValue && styles.hide) }}>
 			{labelBottom || <div style={{ fontSize: labelFontSize }}>{label}</div>}
@@ -64,7 +65,7 @@ const Labels = ({
 				style={{ ...styles.value, ...(!labelBottom && styles.bottomMargin) }}>
 				<code>
 					<span style={styles.prepended}>{prependToValue}</span>
-					{value}
+					{label?.value || label}
 					<span style={styles.appended}>{appendToValue}</span>
 				</code>
 			</div>
@@ -74,8 +75,7 @@ const Labels = ({
 };
 
 Labels.propTypes = {
-	label: PropTypes.string.isRequired,
-	value: PropTypes.string.isRequired,
+	label: PropTypes.string | PropTypes.object,
 	labelColor: PropTypes.string,
 	labelBottom: PropTypes.bool,
 	labelFontSize: PropTypes.string,

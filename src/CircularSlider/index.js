@@ -6,7 +6,6 @@ import useEventListener from "../hooks/useEventListener";
 import useIsServer from "../hooks/useIsServer";
 import Knob from "../Knob";
 import Labels from "../Labels";
-import LabelTitle from "../Labels/label";
 import Svg from "../Svg";
 
 const spreadDegrees = 360;
@@ -62,9 +61,10 @@ const CircularSlider = ({
   knobColor = "#4e63ea",
   knobSize = 36,
   knobPosition = "top",
-  labelColor = "#272b77",
   labelBottom = false,
+  labelColor = "#272b77",
   labelFontSize = "1rem",
+  activedlabelColor = "#c54a1b",
   valueFontSize = "3rem",
   appendToValue = "",
   prependToValue = "",
@@ -83,7 +83,6 @@ const CircularSlider = ({
   progressLineCap = "round",
   renderLabelValue = null,
   cursor,
-  children,
   onChange = (value) => {},
 }) => {
   const initialState = {
@@ -119,11 +118,8 @@ const CircularSlider = ({
   const setKnobPosition = useCallback(
     (radians) => {
       const radius = state.radius - trackSize / 2;
-      const offsetRadians =
-        radians + getOffsetRideans(knobPosition, offsetAngle);
-      let degrees =
-        (offsetRadians > 0 ? offsetRadians : 2 * Math.PI + offsetRadians) *
-        (spreadDegrees / (2 * Math.PI));
+      const offsetRadians = radians + getOffsetRideans(knobPosition, offsetAngle);
+      let degrees = (offsetRadians > 0 ? offsetRadians : 2 * Math.PI + offsetRadians) * (spreadDegrees / (2 * Math.PI));
 
       if (knobPosition === "bottom" && degrees > limit) {
         return true;
@@ -134,25 +130,23 @@ const CircularSlider = ({
       }
       // change direction
       const dashOffset = (degrees / spreadDegrees) * state.dashFullArray;
-      degrees =
-        getSliderRotation(direction) === -1 ? spreadDegrees - degrees : degrees;
+      degrees = getSliderRotation(direction) === -1 ? spreadDegrees - degrees : degrees;
 
-      const pointsInCircle = (state.data.length) / spreadDegrees;
+      const pointsInCircle = state.data.length / spreadDegrees;
       const currentPoint = Math.round(degrees * pointsInCircle);
+      const currentIndex = Math.floor((degrees * data.length) / limit);
+
+      setActived(currentIndex);
 
       if (state.data[currentPoint] !== state.label) {
-        // props callback for parent
-        setActived(currentPoint);
         onChange(state.data[currentPoint]);
       }
 
+      console.log(state.data[currentPoint])
       dispatch({
         type: "setKnobPosition",
         payload: {
-          dashFullOffset:
-            getSliderRotation(direction) === -1
-              ? dashOffset
-              : state.dashFullArray - dashOffset,
+          dashFullOffset: getSliderRotation(direction) === -1 ? dashOffset : state.dashFullArray - dashOffset,
           label: state.data[currentPoint],
           knob: {
             x: radius * Math.cos(radians) + radius,
@@ -161,6 +155,7 @@ const CircularSlider = ({
         },
       });
     },
+    // eslint-disable-next-line
     [
       offsetAngle,
       limit,
@@ -210,14 +205,8 @@ const CircularSlider = ({
 
       const offsetRelativeToDocument = (ref) => {
         const rect = ref.current.getBoundingClientRect();
-        const scrollLeft =
-          !isServer &&
-          ((window?.pageXOffset ?? 0) ||
-            (document?.documentElement?.scrollLeft ?? 0));
-        const scrollTop =
-          !isServer &&
-          ((window?.pageYOffset ?? 0) ||
-            (document?.documentElement?.scrollTop ?? 0));
+        const scrollLeft = !isServer && ((window?.pageXOffset ?? 0) || (document?.documentElement?.scrollLeft ?? 0));
+        const scrollTop = !isServer && ((window?.pageYOffset ?? 0) || (document?.documentElement?.scrollTop ?? 0));
         return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
       };
 
@@ -241,12 +230,8 @@ const CircularSlider = ({
       type: "init",
       payload: {
         mounted: true,
-        data: state.data.length
-          ? [...state.data]
-          : [...generateRange(min, max)],
-        dashFullArray: svgFullPath.current.getTotalLength
-          ? svgFullPath.current.getTotalLength()
-          : 0,
+        data: state.data.length ? [...state.data] : [...generateRange(min, max)],
+        dashFullArray: svgFullPath.current.getTotalLength ? svgFullPath.current.getTotalLength() : 0,
       },
     });
     // eslint-disable-next-line
@@ -255,51 +240,29 @@ const CircularSlider = ({
   // Set knob position
   useEffect(() => {
     let updatedIndex = activedItem === null ? dataIndex : activedItem;
-    console.log("effect ----->", updatedIndex);
     const dataArrayLength = state.data.length;
-    const knobPositionIndex =
-      updatedIndex > dataArrayLength - 1 ? dataArrayLength - 1 : updatedIndex;
+    const knobPositionIndex = updatedIndex > dataArrayLength - 1 ? dataArrayLength - 1 : updatedIndex;
 
     if (!!dataArrayLength) {
-      const pointsInCircle = spreadDegrees / dataArrayLength;
+      const pointsInCircle = limit / dataArrayLength;
       const offset = getRadians(pointsInCircle) / 2;
 
       dispatch({
         type: "setInitialKnobPosition",
         payload: {
-          radians:
-            Math.PI / 2 - getOffsetRideans(state.knobPosition, offsetAngle),
+          radians: Math.PI / 2 - getOffsetRideans(state.knobPosition, offsetAngle),
           offset,
         },
       });
 
-      if (knobPositionIndex) {
-        const degrees =
-          getSliderRotation(direction) * knobPositionIndex * pointsInCircle;
-        const radians =
-          getRadians(degrees) -
-          getOffsetRideans(state.knobPosition, offsetAngle);
+      const degrees = getSliderRotation(direction) * knobPositionIndex * pointsInCircle;
+      const radians = getRadians(degrees) - getOffsetRideans(state.knobPosition, offsetAngle);
 
-        return setKnobPosition(radians + offset * getSliderRotation(direction));
-      }
-      setKnobPosition(
-        -(
-          getOffsetRideans(state.knobPosition, offsetAngle) *
-          getSliderRotation(direction)
-        ) +
-          offset * getSliderRotation(direction)
-      );
+      return setKnobPosition(radians + offset * getSliderRotation(direction));
     }
 
     // eslint-disable-next-line
-  }, [
-    state.dashFullArray,
-    state.knobPosition,
-    state.data.length,
-    dataIndex,
-    direction,
-    updatedKey,
-  ]);
+  }, [state.dashFullArray, state.knobPosition, state.data.length, dataIndex, direction, updatedKey]);
 
   useEventListener(SLIDER_EVENT.MOVE, onMouseMove);
   useEventListener(SLIDER_EVENT.UP, onMouseUp);
@@ -307,10 +270,7 @@ const CircularSlider = ({
   const sanitizedLabel = label.replace(/[\W_]/g, "_");
 
   return (
-    <div
-      style={{ ...styles.circularSlider, ...(state.mounted && styles.mounted) }}
-      ref={circularSlider}
-    >
+    <div style={{ ...styles.circularSlider, ...(state.mounted && styles.mounted) }} ref={circularSlider}>
       <Svg
         width={width}
         label={sanitizedLabel}
@@ -329,6 +289,9 @@ const CircularSlider = ({
         trackSize={trackSize}
         radiansOffset={state.radians}
         offsetAngle={offsetAngle}
+        labelColor={labelColor}
+        labelFontSize={labelFontSize}
+        activedlabelColor={activedlabelColor}
         data={data}
         activedItem={activedItem}
       />
@@ -345,7 +308,7 @@ const CircularSlider = ({
           {cursor}
         </Knob>
       )}
-      {renderLabelValue && (
+      {renderLabelValue || (
         <Labels
           label={label}
           labelColor={labelColor}
@@ -356,14 +319,9 @@ const CircularSlider = ({
           appendToValue={appendToValue}
           prependToValue={prependToValue}
           hideLabelValue={hideLabelValue}
-          value={`${state.label}`}
+          value={state.label}
         />
       )}
-      {/* {children} */}
-    
-        {/* <div key={index} className="circual-slider-label">
-          <span>{item.value}</span>
-        </div> */}
     </div>
   );
 };

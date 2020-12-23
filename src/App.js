@@ -33,42 +33,35 @@ const App = () => {
       </h3>
       <div style={styles.slider}>
         <CircularSlider
-          // limit={270}
-          // offsetAngle={-45}
+          limit={270}
+          offsetAngle={-45}
           direction={1}
           data={[
             {
               key: 1,
-              value: "start",
+              value: "STAFFING",
+            },
+            {
+              key: 2,
+              value: "TEAM",
             },
             {
               key: 1,
-              value: "test",
+              value: "PROJECT",
             },
             {
               key: 1,
-              value: "test",
-            },
-            {
-              key: 1,
-              value: "test",
-            },
-            {
-              key: 1,
-              value: "end",
-            },
+              value: "MANAGED",
+            }
           ]}
           knobPosition="bottom"
-          appendToValue="°"
           valueFontSize="4rem"
           renderLabelValue={false}
           progressLineCap="flat"
           progressSize={24}
           trackColor="#eeeeee"
           trackSize={24}
-          // cursor={<DragIcon x="22" y="22" width="28px" height="28px" />}
         >
-          {/* <div>fwefkweofkwoefkwoekfowek</div> */}
         </CircularSlider>
       </div>
       <pre className={styles.pre}>
