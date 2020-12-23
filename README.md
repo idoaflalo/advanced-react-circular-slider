@@ -9,14 +9,14 @@ A highly customizable circular slider with no dependencies. See some [live demos
 ## install
 
 ```
-npm install @fseehawer/react-circular-slider
+npm install @jsdev63/advanced_react-circular-slider
 ```
 
 ## example
 
 ```javascript
 import React from 'react';
-import CircularSlider from '@fseehawer/react-circular-slider';
+import CircularSlider from '@jsdev63/advanced_react-circular-slider';
 
 const App = () => {
     return (
@@ -29,11 +29,11 @@ const App = () => {
 export default App;
 ```
 
-Use min and max props to define the range of numbers. Use prependToValue/appendToValue if you want to prepend/append e.g. "$" or "°" to the value. Or simply use the data prop and pass any number or string sequence as an array to be spread in 360°. See some [live demos here!](https://fseehawer.github.io/react-circular-slider/)
+Use min and max props to define the range of numbers. Use prependToValue/appendToValue if you want to prepend/append e.g. "$" or "°" to the value. Or simply use the data prop and pass any number or string sequence as an array to be spread in 360°. See some [live demos here!](https://jsdev63.github.io/advanced_react-circular-slider/)
 
 ```javascript
 import React from 'react';
-import CircularSlider from '@fseehawer/react-circular-slider';
+import CircularSlider from '@jsdev63/advanced_react-circular-slider';
 
 const App = () => {
     return (
