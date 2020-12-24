@@ -4,6 +4,8 @@
 
 A highly customizable circular slider with no dependencies. See some [live demos here!](https://jsdev63/advanced_react-circular-slider/)
 
+<img src="public/slider2.png" alt="CircularSlider example image" width="100%" />
+
 <img src="public/circular-slider.png" alt="CircularSlider example image" width="100%" />
 
 ## install

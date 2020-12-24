@@ -1,6 +1,6 @@
 {
   "name": "@jsdev63/advanced_react-circular-slider",
-  "version": "2.3.6",
+  "version": "2.3.7",
   "description": "Advanced circular slider with no dependencies.",
   "main": "index.js",
   "repository": {
@@ -72,5 +72,7 @@
       "last 1 safari version"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "lodash": "^4.17.20"
+  }
 }

@@ -53,12 +53,14 @@ const App = () => {
             }
           ]}
           knobPosition="bottom"
-          valueFontSize="4rem"
+          valueFontSize="2rem"
           renderLabelValue={null}
           progressLineCap="flat"
           progressSize={24}
           trackColor="#eeeeee"
           trackSize={24}
+          knobColor = "blue"
+          knobSize= {50}
         >
         </CircularSlider>
       </div>

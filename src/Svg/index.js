@@ -24,7 +24,7 @@ const Svg = ({
   offsetAngle,
   data,
   activedItem,
-  onLableClick
+  onLableClick,
 }) => {
   const styles = {
     svg: {
@@ -33,9 +33,7 @@ const Svg = ({
     },
 
     path: {
-      transform: `rotate(${radiansOffset}rad) ${
-        direction === -1 ? "scale(-1, 1)" : "scale(1, 1)"
-      }`,
+      transform: `rotate(${radiansOffset}rad) ${direction === -1 ? "scale(-1, 1)" : "scale(1, 1)"}`,
       transformOrigin: "center center",
     },
     label: {
@@ -45,12 +43,12 @@ const Svg = ({
       textAnchor: "middle",
       fontSize: labelFontSize,
       fill: labelColor,
-      cursor: "pointer"
+      cursor: "pointer",
     },
     activedTitle: {
       fill: activedlabelColor,
-      transition: "all 0.6s ease-in-out"
-    }
+      transition: "all 0.6s ease-in-out",
+    },
   };
 
   const halfTrack = trackSize / 2;
@@ -84,12 +82,8 @@ const Svg = ({
         d={`
             M ${width / 2}, ${width / 2}
             m 0, -${width / 2 - halfTrack}
-            a ${width / 2 - halfTrack},${width / 2 - halfTrack} 0 0,1 0,${
-          width - halfTrack * 2
-        }
-            a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${
-          width - halfTrack * 2
-        }
+            a ${width / 2 - halfTrack},${width / 2 - halfTrack} 0 0,1 0,${width - halfTrack * 2}
+            a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${width - halfTrack * 2}
         `}
       />
       <path
@@ -103,12 +97,8 @@ const Svg = ({
         d={`
             M ${width / 2}, ${width / 2}
             m 0, -${width / 2 - progressSize}
-            a ${width / 2 - progressSize},${width / 2 - progressSize} 0 0,1 0,${
-          width - progressSize * 2
-        }
-            a -${width / 2 - progressSize},-${
-          width / 2 - progressSize
-        } 0 0,1 0,-${width - progressSize * 2}
+            a ${width / 2 - progressSize},${width / 2 - progressSize} 0 0,1 0,${width - progressSize * 2}
+            a -${width / 2 - progressSize},-${width / 2 - progressSize} 0 0,1 0,-${width - progressSize * 2}
         `}
       />
       <path
@@ -123,12 +113,8 @@ const Svg = ({
         d={`
             M ${width / 2}, ${width / 2}
             m 0, -${width / 2 - halfTrack}
-            a ${width / 2 - halfTrack},${width / 2 - halfTrack} 0 0,1 0,${
-          width - halfTrack * 2
-        }
-            a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${
-          width - halfTrack * 2
-        }
+            a ${width / 2 - halfTrack},${width / 2 - halfTrack} 0 0,1 0,${width - halfTrack * 2}
+            a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${width - halfTrack * 2}
         `}
       />
 
@@ -146,18 +132,15 @@ const Svg = ({
         stroke="none"
       />
 
+
       <text style={styles.text}>
         {data?.map((item, key) => (
           <textPath
             xlinkHref="#myTextPath"
-            startOffset={`${
-              (angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6
-            }%`}
+            startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`}
             key={key}
           >
-            <tspan style={(key === activedItem && styles.activedTitle)||{}}
-              onClick={()=>onLableClick(key)}
-            >
+            <tspan style={(key === activedItem && styles.activedTitle) || {}} onClick={() => onLableClick(key)}>
               {item.value}
             </tspan>
           </textPath>
@@ -166,6 +149,7 @@ const Svg = ({
     </svg>
   );
 };
+
 
 Svg.propTypes = {
   width: PropTypes.number,
