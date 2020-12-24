@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { any } from 'prop-types';
 
 const Labels = ({
 	labelColor,
@@ -56,8 +56,6 @@ const Labels = ({
 		},
 	};
 
-	console.log(label)
-
 	return (
 		<div style={{ ...styles.labels, ...(hideLabelValue && styles.hide) }}>
 			{labelBottom || <div style={{ fontSize: labelFontSize }}>{label}</div>}
@@ -75,7 +73,7 @@ const Labels = ({
 };
 
 Labels.propTypes = {
-	label: PropTypes.string | PropTypes.object,
+	label: any,
 	labelColor: PropTypes.string,
 	labelBottom: PropTypes.bool,
 	labelFontSize: PropTypes.string,

@@ -39,7 +39,7 @@ const Svg = ({
       transformOrigin: "center center",
     },
     label: {
-      transform: "translateY(40px)",
+      transform: "translateY(20px)",
     },
     text: {
       textAnchor: "middle",
@@ -55,7 +55,7 @@ const Svg = ({
 
   const halfTrack = trackSize / 2;
   const maxValue = (strokeDasharray * (360 - limit)) / 360;
-  const curveRadian = width / 2 + 30;
+  const curveRadian = width / 2 + 16;
   const angleUnit = data ? limit / data.length : 1;
 
   return (
@@ -79,7 +79,7 @@ const Svg = ({
         strokeDashoffset={maxValue}
         strokeWidth={trackSize}
         stroke={trackColor}
-        strokeLinecap={"round"}
+        strokeLinecap={progressLineCap}
         fill="none"
         d={`
             M ${width / 2}, ${width / 2}
@@ -97,7 +97,7 @@ const Svg = ({
         strokeDasharray={strokeDasharray * 0.9}
         strokeDashoffset={strokeDashoffset * 0.9}
         strokeWidth={progressSize}
-        strokeLinecap={"flat"}
+        strokeLinecap={progressLineCap}
         fill="none"
         stroke={doubleLineColor}
         d={`
@@ -147,18 +147,15 @@ const Svg = ({
       />
 
       <text style={styles.text}>
-        {/* <tspan dy="5"> */}
-        {/* </tspan> */}
         {data?.map((item, key) => (
           <textPath
             xlinkHref="#myTextPath"
-            dy="5"
             startOffset={`${
               (angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6
             }%`}
             key={key}
           >
-            <tspan dy="5" style={(key === activedItem && styles.activedTitle)||{}}
+            <tspan style={(key === activedItem && styles.activedTitle)||{}}
               onClick={()=>onLableClick(key)}
             >
               {item.value}

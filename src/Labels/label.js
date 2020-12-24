@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes, { any } from "prop-types";
 
 const LabelTitle = ({
   labelColor,
@@ -82,7 +82,7 @@ const LabelTitle = ({
 };
 
 LabelTitle.propTypes = {
-  label: PropTypes.string | PropTypes.object,
+  label: any,
   labelColor: PropTypes.string,
   labelBottom: PropTypes.bool,
   labelFontSize: PropTypes.string,

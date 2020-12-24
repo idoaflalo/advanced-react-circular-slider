@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useCallback, useRef } from "react";
 import window from "global";
-import PropTypes from "prop-types";
+import PropTypes, { any } from "prop-types";
 import reducer from "../redux/reducer";
 import useEventListener from "../hooks/useEventListener";
 import useIsServer from "../hooks/useIsServer";
@@ -37,19 +37,6 @@ const generateRange = (min, max) => {
   return rangeOfNumbers;
 };
 
-const styles = {
-  circularSlider: {
-    position: "relative",
-    display: "inline-block",
-    opacity: 0,
-    transition: "opacity 1s ease-in",
-    margin: '45px'
-  },
-
-  mounted: {
-    opacity: 1,
-  },
-};
 
 const CircularSlider = ({
   label = "ANGLE",
@@ -103,6 +90,7 @@ const CircularSlider = ({
     dashFullArray: 0,
     dashFullOffset: 0,
   };
+
   const isServer = useIsServer();
   const [state, dispatch] = useReducer(reducer, initialState);
   const circularSlider = useRef(null);
@@ -143,7 +131,6 @@ const CircularSlider = ({
         onChange(state.data[currentPoint]);
       }
 
-      console.log(state.data[currentPoint])
       dispatch({
         type: "setKnobPosition",
         payload: {
@@ -270,6 +257,22 @@ const CircularSlider = ({
 
   const sanitizedLabel = label.replace(/[\W_]/g, "_");
 
+  const styles = {
+    circularSlider: {
+      position: "relative",
+      display: "inline-block",
+      opacity: 0,
+      transition: "opacity 1s ease-in",
+      margin: '45px',
+      minWidth: `${width}px`,
+      minHeight: `${width}px`,
+    },
+  
+    mounted: {
+      opacity: 1,
+    },
+  };
+
   return (
     <div style={{ ...styles.circularSlider, ...(state.mounted && styles.mounted) }} ref={circularSlider}>
       <Svg
@@ -332,7 +335,7 @@ const CircularSlider = ({
 };
 
 CircularSlider.propTypes = {
-  label: PropTypes.string,
+  label: any,
   width: PropTypes.number,
   direction: PropTypes.number,
   min: PropTypes.number,

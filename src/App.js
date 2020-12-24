@@ -54,7 +54,7 @@ const App = () => {
           ]}
           knobPosition="bottom"
           valueFontSize="4rem"
-          renderLabelValue={false}
+          renderLabelValue={null}
           progressLineCap="flat"
           progressSize={24}
           trackColor="#eeeeee"
