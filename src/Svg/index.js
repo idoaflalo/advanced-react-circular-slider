@@ -8,6 +8,7 @@ const Svg = ({
   label,
   labelColor,
   labelFontSize,
+  labelOffset,
   activedlabelColor,
   direction,
   strokeDasharray,
@@ -53,7 +54,7 @@ const Svg = ({
 
   const halfTrack = trackSize / 2;
   const maxValue = (strokeDasharray * (360 - limit)) / 360;
-  const curveRadian = width / 2 + 16;
+  const curveRadian = width / 2 + labelOffset;
   const angleUnit = data ? limit / data.length : 1;
 
   return (

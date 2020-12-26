@@ -57,6 +57,7 @@ const CircularSlider = ({
   labelBottom = false,
   labelColor = "#272b77",
   labelFontSize = "1rem",
+  labelOffset = 20,
   activedlabelColor = "#c54a1b",
   valueFontSize = "3rem",
   appendToValue = "",
@@ -139,7 +140,7 @@ const CircularSlider = ({
     }
   };
   const setKnobPosition = useCallback(
-    throttle((radians) => {
+    (radians) => {
       const radius = state.radius - trackSize / 2;
       const offsetRadians = radians + getOffsetRideans(knobPosition, offsetAngle);
       let degrees = (offsetRadians > 0 ? offsetRadians : 2 * Math.PI + offsetRadians) * (spreadDegrees / (2 * Math.PI));
@@ -178,7 +179,7 @@ const CircularSlider = ({
           },
         },
       });
-    }, 100),
+    },
     // eslint-disable-next-line
     [
       offsetAngle,
@@ -299,7 +300,17 @@ const CircularSlider = ({
       minWidth: `${width}px`,
       minHeight: `${width}px`,
     },
-
+    value: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column'
+    },
     mounted: {
       opacity: 1,
     },
@@ -315,9 +326,10 @@ const CircularSlider = ({
     >
       <Svg
         width={width}
-        label={sanitizedLabel}
         limit={limit}
         max={max}
+        label={sanitizedLabel}
+        labelOffset={labelOffset}
         direction={direction}
         strokeDasharray={state.dashFullArray}
         strokeDashoffset={state.dashFullOffset}
@@ -355,7 +367,9 @@ const CircularSlider = ({
           {knobEl}
         </Knob>
       )}
-      {renderLabelValue || (
+      {renderLabelValue ? (
+        <div style={styles.value}>{renderLabelValue}</div>
+      ) : (
         <Labels
           label={label}
           labelColor={labelColor}
