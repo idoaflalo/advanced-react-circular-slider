@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "27cf86543218c358622682d75b33f61f",
+    "revision": "b2acea73d4eefd8dd9aaa9671330ec33",
     "url": "/advanced_react-circular-slider/index.html"
   },
   {
-    "revision": "60c2b1e6c2cbe5269766",
+    "revision": "379587e4a41de0f65b9b",
     "url": "/advanced_react-circular-slider/static/css/main.863b3ee0.chunk.css"
   },
   {
-    "revision": "f5379d1b820f8cf9820a",
-    "url": "/advanced_react-circular-slider/static/js/2.82a9f7d9.chunk.js"
+    "revision": "0335722627c74e2555f0",
+    "url": "/advanced_react-circular-slider/static/js/2.8f8bba3b.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/advanced_react-circular-slider/static/js/2.82a9f7d9.chunk.js.LICENSE.txt"
+    "url": "/advanced_react-circular-slider/static/js/2.8f8bba3b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "60c2b1e6c2cbe5269766",
-    "url": "/advanced_react-circular-slider/static/js/main.6146afcd.chunk.js"
+    "revision": "379587e4a41de0f65b9b",
+    "url": "/advanced_react-circular-slider/static/js/main.fd25bf5b.chunk.js"
   },
   {
     "revision": "3768955ce2787dc5abd0",
