@@ -156,7 +156,7 @@ const CircularSlider = ({
       degrees = getSliderRotation(direction) === -1 ? spreadDegrees - degrees : degrees;
 
       lastAngle.current = degrees;
-      // knobRef.current.style = `transform: rotate(${degrees + offsetAngle}deg);`;
+      knobRef.current.style = `transform: rotate(${degrees + offsetAngle}deg);`;
       const pointsInCircle = state.data.length / spreadDegrees;
       const currentPoint = Math.round(degrees * pointsInCircle);
       const currentIndex = Math.floor((degrees * data.length) / limit);
@@ -365,7 +365,7 @@ const CircularSlider = ({
       />
       {knobDraggable && (
         <Knob
-          ref={knobRef}
+          knobRef={knobRef}
           isDragging={state.isDragging}
           knobPosition={{ x: state.knob.x, y: state.knob.y }}
           knobSize={knobSize}

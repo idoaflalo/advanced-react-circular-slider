@@ -1,5 +1,6 @@
 import React from "react";
 import CircularSlider from "./CircularSlider";
+import { ReactComponent as DragIcon } from './assets/arrow.svg';
 
 const App = () => {
   const styles = {

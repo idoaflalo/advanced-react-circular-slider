@@ -70,6 +70,7 @@ limit                | number | 360           | maximum angle
 offsetAngle          | number | -45           | offset angle
 data                 | array  | []            | array of data to be spread in 360°
 dataIndex            | number | 0             | initially place knob at a certain value in the array
+knobEl               | string | null          | knob element
 knobColor            | string | #4e63ea       | knob color
 knobSize             | number | 32            | knob size
 hideKnob             | boolean| false         | hide knob
@@ -77,7 +78,7 @@ knobDraggable        | boolean| true          | knob not draggable
 knobPosition         | string | top           | knob's 0 position to be **top**, **right**, **bottom** or **left**
 label                | string | ANGLE         | label
 labelColor           | string | #272b77       | label and value color
-labelOffset          | number | 20       | spacing between label and circle
+labelOffset          | number | 20            | spacing between label and circle
 activedlabelColor    | string | #c54a1b       | actived label and value color
 labelBottom          | boolean| false         | label position at bottom
 labelFontSize        | string | 1rem          | label font-size

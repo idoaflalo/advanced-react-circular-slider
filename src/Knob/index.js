@@ -2,19 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./index.css";
 
-const Knob = React.forwardRef((props, ref) => {
-  const {
-    isDragging,
-    knobPosition,
-    knobColor,
-    knobSize,
-    hideKnob,
-    onMouseDown,
-    onMouseUp,
-    trackSize,
-    children,
-  } = props;
-
+const Knob = ({
+  knobRef,
+  isDragging,
+  knobPosition,
+  knobColor,
+  knobSize,
+  hideKnob,
+  onMouseDown,
+  onMouseUp,
+  trackSize,
+  children,
+}) => {
   const styles = {
     knob: {
       position: "absolute",
@@ -55,11 +54,8 @@ const Knob = React.forwardRef((props, ref) => {
     );
   };
 
-  const customKnobIcon = () => children;
-
   return (
     <div
-      ref={ref}
       style={{
         transform: `translate(${knobPosition.x}px, ${knobPosition.y}px)`,
         ...styles.knob,
@@ -70,7 +66,7 @@ const Knob = React.forwardRef((props, ref) => {
       onTouchStart={onMouseDown}
       onTouchEnd={onMouseUp}
     >
-      <svg ref={ref} width={`${knobSize}px`} height={`${knobSize}px`} viewBox={`0 0 ${knobSize} ${knobSize}`}>
+      <svg ref={knobRef} width={`${knobSize}px`} height={`${knobSize}px`} viewBox={`0 0 ${knobSize} ${knobSize}`}>
         <circle
           style={{ ...styles.animation, ...(isDragging && styles.pause) }}
           fill={knobColor}
@@ -81,11 +77,11 @@ const Knob = React.forwardRef((props, ref) => {
           r={knobSize / 2}
         />
         <circle fill={knobColor} stroke="none" cx={knobSize / 2} cy={knobSize / 2} r={(knobSize * 2) / 3 / 2} />
-        {children ? customKnobIcon() : defaultKnobIcon()}
+        {children ? children : defaultKnobIcon()}
       </svg>
     </div>
   );
-});
+};
 
 Knob.propTypes = {
   isDragging: PropTypes.bool,
