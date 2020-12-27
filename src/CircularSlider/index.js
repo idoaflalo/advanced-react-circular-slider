@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer, useCallback, useRef } from "react";
 import window from "global";
 import PropTypes, { any } from "prop-types";
-import { throttle } from "lodash";
 import reducer from "../redux/reducer";
 import useIsServer from "../hooks/useIsServer";
 import Knob from "../Knob";
@@ -104,20 +103,18 @@ const CircularSlider = ({
   const [state, dispatch] = useReducer(reducer, initialState);
   const [activedItem, setActived] = React.useState(null);
   const [updatedKey, updateState] = React.useState(null);
+  const dragable = useRef(null);
 
   // eslint-disable-next-line
   const microSlide = async ({ degrees, pointsInCircle, offset }) => {
     if (processFlag.current) return;
     processFlag.current = true;
-    console.log("target = ", degrees, lastAngle.current);
 
     const step = 10;
     let startPoint = lastAngle.current - pointsInCircle / 2;
     const distance = Math.abs(degrees - startPoint);
     const stepDrection = degrees > startPoint ? 1 : -1;
     const stepCount = Math.round(distance / step);
-
-    console.log("start =", startPoint, "stepCount =>", stepCount);
 
     if (stepCount < 1) {
       processFlag.current = false;
@@ -140,6 +137,7 @@ const CircularSlider = ({
       }
     }
   };
+
   const setKnobPosition = useCallback(
     (radians) => {
       const radius = state.radius - trackSize / 2;
@@ -158,7 +156,7 @@ const CircularSlider = ({
       degrees = getSliderRotation(direction) === -1 ? spreadDegrees - degrees : degrees;
 
       lastAngle.current = degrees;
-      knobRef.current.style = `transform: rotate(${degrees + offsetAngle}deg);`;
+      // knobRef.current.style = `transform: rotate(${degrees + offsetAngle}deg);`;
       const pointsInCircle = state.data.length / spreadDegrees;
       const currentPoint = Math.round(degrees * pointsInCircle);
       const currentIndex = Math.floor((degrees * data.length) / limit);
@@ -197,6 +195,7 @@ const CircularSlider = ({
   );
 
   const onMouseDown = () => {
+    dragable.current = true;
     dispatch({
       type: "onMouseDown",
       payload: {
@@ -206,6 +205,7 @@ const CircularSlider = ({
   };
 
   const onMouseUp = () => {
+    dragable.current = false;
     dispatch({
       type: "onMouseUp",
       payload: {
@@ -219,10 +219,10 @@ const CircularSlider = ({
   };
 
   const onMouseMove = useCallback(
-    (event) => {
-      if (!state.isDragging) return;
+    (event, passive = false) => {
+      if (!dragable.current) return;
 
-      event.preventDefault();
+      if (passive) event.preventDefault();
 
       let touch;
       if (event.type === "touchmove") {
@@ -247,11 +247,19 @@ const CircularSlider = ({
 
       setKnobPosition(radians);
     },
-    [state.isDragging, state.radius, setKnobPosition, isServer]
+    [state.radius, setKnobPosition, isServer]
   );
 
   // Get svg path length onmount
   useEffect(() => {
+    circularSlider.current.addEventListener(
+      "touchmove",
+      function (e) {
+        onMouseMove(e, true);
+      },
+      { passive: false }
+    );
+
     dispatch({
       type: "init",
       payload: {
@@ -320,9 +328,11 @@ const CircularSlider = ({
     <div
       style={{ ...styles.circularSlider, ...(state.mounted && styles.mounted) }}
       ref={circularSlider}
+      onMouseDown={onMouseDown}
       onMouseMove={(ev) => onMouseMove(ev)}
       onMouseUp={() => onMouseUp()}
       onMouseLeave={() => onMouseUp()}
+      onTouchMove={onMouseMove}
     >
       <Svg
         width={contentWidth}
@@ -332,7 +342,7 @@ const CircularSlider = ({
         labelOffset={labelOffset}
         direction={direction}
         strokeDasharray={state.dashFullArray}
-        strokeDashoffset={state.dashFullOffset}
+        strokeDashoffset={state.dashFullOffset || 100}
         svgFullPath={svgFullPath}
         progressSize={progressSize}
         progressColorFrom={progressColorFrom}
@@ -355,7 +365,7 @@ const CircularSlider = ({
       />
       {knobDraggable && (
         <Knob
-          knobRef={knobRef}
+          ref={knobRef}
           isDragging={state.isDragging}
           knobPosition={{ x: state.knob.x, y: state.knob.y }}
           knobSize={knobSize}
@@ -363,6 +373,7 @@ const CircularSlider = ({
           trackSize={trackSize}
           hideKnob={hideKnob}
           onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
         >
           {knobEl}
         </Knob>

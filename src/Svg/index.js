@@ -89,8 +89,8 @@ const Svg = ({
       />
       <path
         style={styles.path}
-        strokeDasharray={strokeDasharray * 0.9}
-        strokeDashoffset={strokeDashoffset * 0.9}
+        strokeDasharray={strokeDasharray * (width/2)/curveRadian}
+        strokeDashoffset={strokeDashoffset * (width/2)/curveRadian}
         strokeWidth={progressSize}
         strokeLinecap={progressLineCap}
         fill="none"
@@ -133,7 +133,6 @@ const Svg = ({
         stroke="none"
       />
 
-
       <text style={styles.text}>
         {data?.map((item, key) => (
           <textPath
@@ -150,7 +149,6 @@ const Svg = ({
     </svg>
   );
 };
-
 
 Svg.propTypes = {
   width: PropTypes.number,
