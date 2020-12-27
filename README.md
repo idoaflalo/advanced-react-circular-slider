@@ -77,6 +77,7 @@ knobDraggable        | boolean| true          | knob not draggable
 knobPosition         | string | top           | knob's 0 position to be **top**, **right**, **bottom** or **left**
 label                | string | ANGLE         | label
 labelColor           | string | #272b77       | label and value color
+labelOffset          | number | 20       | spacing between label and circle
 activedlabelColor    | string | #c54a1b       | actived label and value color
 labelBottom          | boolean| false         | label position at bottom
 labelFontSize        | string | 1rem          | label font-size

@@ -76,11 +76,12 @@ const CircularSlider = ({
   renderLabelValue = null,
   onChange = (value) => {},
 }) => {
+  const contentWidth = width - 2 * labelOffset;
   const initialState = {
     mounted: false,
     isDragging: false,
-    width: width,
-    radius: width / 2,
+    contentWidth: contentWidth,
+    radius: contentWidth / 2,
     knobPosition: knobPosition,
     label: 0,
     data: data,
@@ -296,20 +297,19 @@ const CircularSlider = ({
       display: "inline-block",
       opacity: 0,
       transition: "opacity 1s ease-in",
-      margin: "45px",
-      minWidth: `${width}px`,
-      minHeight: `${width}px`,
+      margin: `${labelOffset + 25}px`,
+      maxWidth: `${width}px`,
     },
     value: {
-      position: 'absolute',
+      position: "absolute",
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'column'
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
     },
     mounted: {
       opacity: 1,
@@ -325,7 +325,7 @@ const CircularSlider = ({
       onMouseLeave={() => onMouseUp()}
     >
       <Svg
-        width={width}
+        width={contentWidth}
         limit={limit}
         max={max}
         label={sanitizedLabel}
