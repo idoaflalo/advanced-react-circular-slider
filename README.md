@@ -1,6 +1,6 @@
-# react-circular-slider
+# advanced-react-circular-slider
 
-![](https://img.shields.io/badge/version-2.2.4-green.svg) ![](https://img.shields.io/badge/license-MIT-blue.svg)
+![](https://img.shields.io/badge/version-2.4.0-green.svg) ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
 A highly customizable circular slider with no dependencies. See some [live demos here!](https://jsdev63/advanced_react-circular-slider/)
 
@@ -72,7 +72,7 @@ data                 | array  | []            | array of data to be spread in 36
 dataIndex            | number | 0             | initially place knob at a certain value in the array
 knobEl               | string | null          | knob element
 knobColor            | string | #4e63ea       | knob color
-knobSize             | number | 32            | knob size
+knobSize             | number | 32            | knob size, should be large than track size
 hideKnob             | boolean| false         | hide knob
 knobDraggable        | boolean| true          | knob not draggable
 knobPosition         | string | top           | knob's 0 position to be **top**, **right**, **bottom** or **left**

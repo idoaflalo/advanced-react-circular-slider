@@ -37,6 +37,10 @@ const Svg = ({
       transform: `rotate(${radiansOffset}rad) ${direction === -1 ? "scale(-1, 1)" : "scale(1, 1)"}`,
       transformOrigin: "center center",
     },
+    doubleLine: {
+      transform: `rotate(${radiansOffset}rad) ${direction === -1 ? "scale(-0.9, 0.9)" : "scale(0.9, 0.9)"}`,
+      transformOrigin: "center center",
+    },
     label: {
       transform: "translateY(20px)",
     },
@@ -87,21 +91,23 @@ const Svg = ({
             a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${width - halfTrack * 2}
         `}
       />
-      <path
-        style={styles.path}
-        strokeDasharray={strokeDasharray * (width/2)/curveRadian}
-        strokeDashoffset={strokeDashoffset * (width/2)/curveRadian}
-        strokeWidth={progressSize}
-        strokeLinecap={progressLineCap}
-        fill="none"
-        stroke={doubleLineColor}
-        d={`
+      {doubleLineColor && (
+        <path
+          style={styles.doubleLine}
+          strokeDasharray={strokeDasharray}
+          strokeDashoffset={strokeDashoffset}
+          strokeWidth={progressSize}
+          strokeLinecap={progressLineCap !== "round" ? "butt" : "round"}
+          fill="none"
+          stroke={doubleLineColor}
+          d={`
             M ${width / 2}, ${width / 2}
-            m 0, -${width / 2 - progressSize}
-            a ${width / 2 - progressSize},${width / 2 - progressSize} 0 0,1 0,${width - progressSize * 2}
-            a -${width / 2 - progressSize},-${width / 2 - progressSize} 0 0,1 0,-${width - progressSize * 2}
+            m 0, -${width / 2 - halfTrack}
+            a ${width / 2 - halfTrack},${width / 2 - halfTrack} 0 0,1 0,${width - halfTrack * 2}
+            a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${width - halfTrack * 2}
         `}
-      />
+        />
+      )}
       <path
         style={styles.path}
         ref={svgFullPath}

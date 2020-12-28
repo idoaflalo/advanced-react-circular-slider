@@ -1,6 +1,6 @@
 import React from "react";
 import CircularSlider from "./CircularSlider";
-import { ReactComponent as DragIcon } from './assets/arrow.svg';
+// import { ReactComponent as DragIcon } from './assets/arrow.svg';
 
 const App = () => {
   const styles = {
@@ -32,8 +32,10 @@ const App = () => {
       </h3>
       <div style={styles.slider}>
         <CircularSlider
+          width={400}
           limit={270}
           offsetAngle={-45}
+          labelOffset={20}
           direction={1}
           data={[
             {
@@ -58,23 +60,48 @@ const App = () => {
           renderLabelValue={null}
           progressLineCap="flat"
           progressSize={24}
+          doubleLineColor={"#DDDEFB"}
           trackColor="#eeeeee"
           trackSize={24}
           knobColor = "blue"
-          knobSize= {50}
+          knobSize= {56}
         >
         </CircularSlider>
       </div>
       <pre className={styles.pre}>
 {`<CircularSlider
-  min={0}
-  max={360}
+  width={400}
   limit={270}
   offsetAngle={-45}
+  labelOffset={20}
   direction={1}
+  data={[
+    {
+      key: 1,
+      value: "STAFFING",
+    },
+    {
+      key: 2,
+      value: "TEAM",
+    },
+    {
+      key: 1,
+      value: "PROJECT",
+    },
+    {
+      key: 1,
+      value: "MANAGED",
+    }
+  ]}
   knobPosition="bottom"
-  appendToValue="°"
-  valueFontSize="4rem"
+  valueFontSize="2rem"
+  renderLabelValue={null}
+  progressLineCap="flat"
+  progressSize={24}
+  trackColor="#eeeeee"
+  trackSize={24}
+  knobColor = "blue"
+  knobSize= {56}
 />`}
       </pre>
       <h3 className={styles.h3}>
