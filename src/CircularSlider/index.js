@@ -328,7 +328,6 @@ const CircularSlider = ({
     <div
       style={{ ...styles.circularSlider, ...(state.mounted && styles.mounted) }}
       ref={circularSlider}
-      onMouseDown={onMouseDown}
       onMouseMove={(ev) => onMouseMove(ev)}
       onMouseUp={() => onMouseUp()}
       onMouseLeave={() => onMouseUp()}

@@ -1,6 +1,6 @@
 {
   "name": "@jsdev63/advanced_react-circular-slider",
-  "version": "2.4.0",
+  "version": "2.4.3",
   "description": "Advanced circular slider with no dependencies.",
   "main": "index.js",
   "repository": {
