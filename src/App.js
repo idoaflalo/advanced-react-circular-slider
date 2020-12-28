@@ -65,6 +65,7 @@ const App = () => {
           trackSize={24}
           knobColor = "blue"
           knobSize= {56}
+          onChange={(e)=>console.log(e)}
         >
         </CircularSlider>
       </div>

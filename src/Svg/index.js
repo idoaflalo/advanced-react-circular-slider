@@ -24,7 +24,7 @@ const Svg = ({
   progressLineCap,
   offsetAngle,
   data,
-  activedItem,
+  activedItem = 0,
   onLableClick,
 }) => {
   const styles = {
@@ -60,7 +60,7 @@ const Svg = ({
   const maxValue = (strokeDasharray * (360 - limit)) / 360;
   const curveRadian = width / 2 + labelOffset;
   const angleUnit = data ? limit / data.length : 1;
-
+  
   return (
     <svg
       width={`${width}px`}
@@ -146,7 +146,7 @@ const Svg = ({
             startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`}
             key={key}
           >
-            <tspan style={(key === activedItem && styles.activedTitle) || {}} onClick={() => onLableClick(key)}>
+            <tspan style={(key === activedItem - 1 && styles.activedTitle) || {}} onClick={() => onLableClick(key + 1)}>
               {item.value}
             </tspan>
           </textPath>

@@ -6,6 +6,7 @@ import useIsServer from "../hooks/useIsServer";
 import Knob from "../Knob";
 import Labels from "../Labels";
 import Svg from "../Svg";
+import _ from "lodash";
 
 const spreadDegrees = 360;
 const knobOffset = {
@@ -46,7 +47,7 @@ const CircularSlider = ({
   min = 0,
   max = 360,
   limit = 360,
-  offsetAngle = 0,
+  offsetAngle = -45,
   knobColor = "#4e63ea",
   knobSize = 36,
   knobPosition = "top",
@@ -99,11 +100,11 @@ const CircularSlider = ({
   const svgFullPath = useRef(null);
   const lastAngle = useRef(0);
   const processFlag = useRef(false);
+  const dragable = useRef(undefined);
   const isServer = useIsServer();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [activedItem, setActived] = React.useState(null);
   const [updatedKey, updateState] = React.useState(null);
-  const dragable = useRef(null);
 
   // eslint-disable-next-line
   const microSlide = async ({ degrees, pointsInCircle, offset }) => {
@@ -144,34 +145,44 @@ const CircularSlider = ({
       const offsetRadians = radians + getOffsetRideans(knobPosition, offsetAngle);
       let degrees = (offsetRadians > 0 ? offsetRadians : 2 * Math.PI + offsetRadians) * (spreadDegrees / (2 * Math.PI));
 
-      if (knobPosition === "bottom" && degrees > limit) {
-        return true;
-      }
-      if (knobPosition === "top" && degrees < 360 - limit) {
+      if (!activedItem && degrees > limit) {
+        degrees = 0;
+        if (dragable.current === undefined) {
+          dragable.current = false;
+        } else {
+          return;
+        }
+      } else if (knobPosition === "bottom" && degrees > limit) {
+        degrees = limit;
+        return;
+      } else if (knobPosition === "top" && degrees < 360 - limit) {
         degrees = 360 - limit;
-        return true;
+        return;
       }
+
       // change direction
       const dashOffset = (degrees / spreadDegrees) * state.dashFullArray;
       degrees = getSliderRotation(direction) === -1 ? spreadDegrees - degrees : degrees;
-
       lastAngle.current = degrees;
       knobRef.current.style = `transform: rotate(${degrees + offsetAngle}deg);`;
-      const pointsInCircle = state.data.length / spreadDegrees;
-      const currentPoint = Math.round(degrees * pointsInCircle);
-      const currentIndex = Math.floor((degrees * data.length) / limit);
+      const pointsInCircle = state.data.length / limit;
+      const currentPosition = degrees * pointsInCircle;
+      let currentPoint = currentPosition > 0.1 ? Math.ceil(currentPosition) : 0;
 
-      setActived(currentIndex);
+      setActived(currentPoint);
 
-      if (state.data[currentPoint] !== state.label) {
-        onChange(state.data[currentPoint]);
+      if (!_.isEqual(state.data[currentPoint - 1], state.label)) {
+        onChange(state.data[currentPoint - 1]);
       }
 
       dispatch({
         type: "setKnobPosition",
         payload: {
-          dashFullOffset: getSliderRotation(direction) === -1 ? dashOffset : state.dashFullArray - dashOffset,
-          label: state.data[currentPoint],
+          dashFullOffset:
+            getSliderRotation(direction) === -1
+              ? dashOffset
+              : (state.dashFullArray || svgFullPath.current.getTotalLength()) - dashOffset,
+          label: state.data[currentPoint - 1],
           knob: {
             x: radius * Math.cos(radians) + radius,
             y: radius * Math.sin(radians) + radius,
@@ -268,6 +279,7 @@ const CircularSlider = ({
         dashFullArray: svgFullPath.current.getTotalLength ? svgFullPath.current.getTotalLength() : 0,
       },
     });
+
     // eslint-disable-next-line
   }, [max, min]);
 
@@ -275,7 +287,7 @@ const CircularSlider = ({
   useEffect(() => {
     let updatedIndex = activedItem === null ? dataIndex : activedItem;
     const dataArrayLength = state.data.length;
-    const knobPositionIndex = updatedIndex > dataArrayLength - 1 ? dataArrayLength - 1 : updatedIndex;
+    const knobPositionIndex = updatedIndex > dataArrayLength ? dataArrayLength : updatedIndex;
 
     if (!!dataArrayLength) {
       const pointsInCircle = limit / dataArrayLength;
@@ -291,7 +303,11 @@ const CircularSlider = ({
 
       const degrees = getSliderRotation(direction) * knobPositionIndex * pointsInCircle;
       const radians = getRadians(degrees) - getOffsetRideans(state.knobPosition, offsetAngle);
-      return setKnobPosition(radians + offset * getSliderRotation(direction));
+
+      if (!knobPositionIndex) {
+        return setKnobPosition(radians);
+      }
+      return setKnobPosition(radians - offset * getSliderRotation(direction));
     }
 
     // eslint-disable-next-line
@@ -367,7 +383,7 @@ const CircularSlider = ({
           knobRef={knobRef}
           isDragging={state.isDragging}
           knobPosition={{ x: state.knob.x, y: state.knob.y }}
-          knobSize={knobSize>trackSize? knobSize : trackSize}
+          knobSize={knobSize > trackSize ? knobSize : trackSize}
           knobColor={knobColor}
           trackSize={trackSize}
           hideKnob={hideKnob}

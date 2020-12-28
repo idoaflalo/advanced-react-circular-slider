@@ -1,6 +1,6 @@
 # advanced-react-circular-slider
 
-![](https://img.shields.io/badge/version-2.4.3-green.svg) ![](https://img.shields.io/badge/license-MIT-blue.svg)
+![](https://img.shields.io/badge/version-2.4.4-green.svg) ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
 A highly customizable circular slider with no dependencies. See some [live demos here!](https://jsdev63.github.io/advanced_react-circular-slider/)
 
