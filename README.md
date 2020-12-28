@@ -2,11 +2,11 @@
 
 ![](https://img.shields.io/badge/version-2.4.0-green.svg) ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
-A highly customizable circular slider with no dependencies. See some [live demos here!](https://jsdev63/advanced_react-circular-slider/)
+A highly customizable circular slider with no dependencies. See some [live demos here!](https://jsdev63.github.io/advanced_react-circular-slider/)
 
-<img src="public/slider2.png" alt="CircularSlider example image" width="100%" />
+<img src="/public/slider2.png" alt="CircularSlider example image" width="100%" />
 
-<img src="public/circular-slider.png" alt="CircularSlider example image" width="100%" />
+<img src="/public/circular-slider.png" alt="CircularSlider example image" width="100%" />
 
 ## install
 
