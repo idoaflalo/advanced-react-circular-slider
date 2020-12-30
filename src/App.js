@@ -1,6 +1,7 @@
 import React from "react";
 import CircularSlider from "./CircularSlider";
 // import { ReactComponent as DragIcon } from './assets/arrow.svg';
+import { ReactComponent as SlideIcon } from "./assets/slide.svg";
 
 const App = () => {
   const styles = {
@@ -27,8 +28,7 @@ const App = () => {
   return (
     <div style={styles.wrapper}>
       <h3 style={styles.h3}>
-        Anticlockwise rotation with the knob positioned to the right and "°"
-        appended to the value:
+        Anticlockwise rotation with the knob positioned to the right and "°" appended to the value:
       </h3>
       <div style={styles.slider}>
         <CircularSlider
@@ -53,24 +53,24 @@ const App = () => {
             {
               key: 1,
               value: "MANAGED",
-            }
+            },
           ]}
           knobPosition="bottom"
           valueFontSize="2rem"
           renderLabelValue={null}
           progressLineCap="flat"
-          progressSize={24}
-          doubleLineColor={"#DDDEFB"}
-          trackColor="#eeeeee"
-          trackSize={24}
-          knobColor = "blue"
-          knobSize= {56}
-          onChange={(e)=>console.log(e)}
-        >
-        </CircularSlider>
+          progressSize={16}
+          progressColorFrom={"#5215FC"}
+          progressColorTo={"#280885"}
+          doubleLineType={"track"}
+          trackColor="#a9a9a9"
+          trackSize={16}
+          knobColor="blue"
+          knobSize={56}
+        ></CircularSlider>
       </div>
       <pre className={styles.pre}>
-{`<CircularSlider
+        {`<CircularSlider
   width={400}
   limit={270}
   offsetAngle={-45}
@@ -105,30 +105,46 @@ const App = () => {
   knobSize= {56}
 />`}
       </pre>
-      <h3 className={styles.h3}>
-        An initial value of 20, "$" prepended and "K" appended to the value with
-        a custom knob icon and the label on the bottom:
-      </h3>
+      <h3 className={styles.h3}>A custom knob icon and the label on the bottom and double progress line</h3>
       <div className={styles.slider}>
-        {/* <CircularSlider
-          label="savings account"
-          min={0}
-          max={100}
-          dataIndex={20}
-          prependToValue="$"
-          appendToValue="K"
-          labelColor="#005a58"
-          labelBottom={true}
-          knobColor="#005a58"
-          knobSize={72}
-          progressColorFrom="#00bfbd"
-          progressColorTo="#009c9a"
-          progressSize={24}
-          trackColor="#eeeeee"
-          trackSize={24}
-        >
-          <DragIcon x="22" y="22" width="28px" height="28px" />
-        </CircularSlider> */}
+        <CircularSlider
+          width={400}
+          limit={270}
+          offsetAngle={-45}
+          labelOffset={20}
+          direction={1}
+          data={[
+            {
+              key: 1,
+              value: "STAFFING",
+            },
+            {
+              key: 2,
+              value: "TEAM",
+            },
+            {
+              key: 1,
+              value: "PROJECT",
+            },
+            {
+              key: 1,
+              value: "MANAGED",
+            },
+          ]}
+          knobPosition="bottom"
+          valueFontSize="2rem"
+          renderLabelValue={null}
+          progressLineCap="flat"
+          progressSize={16}
+          progressColorFrom={"#5215FC"}
+          progressColorTo={"#280885"}
+          doubleLineType="progress"
+          trackColor="#a9a9a9"
+          trackSize={16}
+          knobColor="blue"
+          knobSize={40}
+          knobEl={<SlideIcon width={40} height={40} />}
+        ></CircularSlider>
       </div>
       <pre className={styles.pre}>
         {`import { ReactComponent as PowerIcon } from './assets/power.svg';
@@ -136,28 +152,47 @@ const App = () => {
 .
 .
 <CircularSlider
-    label="savings"
-    min={0}
-    max={100}
-    dataIndex={20}
-    prependToValue="$"
-    appendToValue="K"
-    labelColor="#005a58"
-    labelBottom={true}
-    knobColor="#005a58"
-    knobSize={72}
-    progressColorFrom="#00bfbd"
-    progressColorTo="#005a58"
-    progressSize={24}
-    trackColor="#eeeeee"
-    trackSize={24}
+width={400}
+limit={270}
+offsetAngle={-45}
+labelOffset={20}
+direction={1}
+data={[
+  {
+    key: 1,
+    value: "STAFFING",
+  },
+  {
+    key: 2,
+    value: "TEAM",
+  },
+  {
+    key: 1,
+    value: "PROJECT",
+  },
+  {
+    key: 1,
+    value: "MANAGED",
+  }
+]}
+knobPosition="bottom"
+valueFontSize="2rem"
+renderLabelValue={null}
+progressLineCap="flat"
+progressSize={16}
+progressColorFrom={'#5215FC'}
+progressColorTo={'#280885'}
+doubleLineType="progress"
+trackColor="#a9a9a9"
+trackSize={16}
+knobColor = "blue"
+knobSize= {40}
+knobEl={<SlideIcon width={40} height={40} />}
 >
-    <DragIcon x='22' y='22' width='28px' height='28px' />
 </CircularSlider>`}
       </pre>
       <h3 className={styles.h3}>
-        A flat line cap with the track size smaller than the progress track size
-        and a smiley knob:
+        A flat line cap with the track size smaller than the progress track size and a smiley knob:
       </h3>
       <div className={styles.slider}>
         {/* <CircularSlider

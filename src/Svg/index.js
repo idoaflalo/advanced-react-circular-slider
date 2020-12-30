@@ -17,6 +17,7 @@ const Svg = ({
   progressColorTo,
   trackColor,
   doubleLineColor,
+  doubleLineType,
   progressSize,
   trackSize,
   svgFullPath,
@@ -49,6 +50,7 @@ const Svg = ({
       fontSize: labelFontSize,
       fill: labelColor,
       cursor: "pointer",
+      userSelect: "none",
     },
     activedTitle: {
       fill: activedlabelColor,
@@ -56,11 +58,32 @@ const Svg = ({
     },
   };
 
+  const doubleTrackRef = React.useRef(null);
   const halfTrack = trackSize / 2;
+  const doubleTrack = trackSize;
+  const contentBorder = trackSize * 2.5;
   const maxValue = (strokeDasharray * (360 - limit)) / 360;
   const curveRadian = width / 2 + labelOffset;
   const angleUnit = data ? limit / data.length : 1;
-  
+
+  const getValue = (el, type) => {
+    const totalValue = el.current?.getTotalLength() || 100;
+    if (type === "track") {
+      return (totalValue * (360 - limit)) / 360;
+    } else if (type === "progress") {
+      return (totalValue * strokeDashoffset) / strokeDasharray;
+    }
+    return totalValue;
+  };
+
+  const getDoubleLineColor = () => {
+    if (doubleLineColor === "gradiant") {
+      return "url(#doubleCircle)";
+    } else if (doubleLineColor) {
+      return doubleLineColor;
+    }
+  };
+
   return (
     <svg
       width={`${width}px`}
@@ -75,8 +98,55 @@ const Svg = ({
           <stop offset="100%" stopColor={progressColorTo} />
         </linearGradient>
       </defs>
+      <defs>
+        <linearGradient id={"doubleCircle"} x1="100%" x2="0%">
+          <stop offset="0%" stopColor={"rgba(67, 255, 131, 0.54)"} />
+          <stop offset="25.88%" stopColor={"#43FF83"} />
+          <stop offset="54.01%" stopColor={"#FFF854"} />
+          <stop offset="79.01%" stopColor={"#FF7878"} />
+          <stop offset="100%" stopColor={"#FF3737"} />
+        </linearGradient>
+      </defs>
+
       <path
-        className="progress-line"
+        className="background-circle"
+        style={styles.path}
+        strokeDasharray={strokeDasharray}
+        strokeDashoffset={maxValue}
+        strokeWidth={1}
+        stroke={null}
+        strokeLinecap={progressLineCap}
+        fill="transparent"
+        d={`
+            M ${width / 2}, ${width / 2}
+            m 0, -${width / 2 - contentBorder}
+            a ${width / 2 - contentBorder},${width / 2 - contentBorder} 0 0,1 0,${width - contentBorder * 2}
+            a -${width / 2 - contentBorder},-${width / 2 - contentBorder} 0 0,1 0,-${width - contentBorder * 2}
+        `}
+      />
+
+      {doubleLineColor && (
+        <path
+          className="double-track"
+          ref={doubleTrackRef}
+          style={styles.path}
+          strokeDasharray={getValue(doubleTrackRef)}
+          strokeDashoffset={getValue(doubleTrackRef, doubleLineType)}
+          strokeWidth={trackSize}
+          stroke={getDoubleLineColor()}
+          strokeLinecap={progressLineCap}
+          fill="none"
+          d={`
+            M ${width / 2}, ${width / 2}
+            m 0, -${width / 2 - doubleTrack}
+            a ${width / 2 - doubleTrack},${width / 2 - doubleTrack} 0 0,1 0,${width - doubleTrack * 2}
+            a -${width / 2 - doubleTrack},-${width / 2 - doubleTrack} 0 0,1 0,-${width - doubleTrack * 2}
+        `}
+        />
+      )}
+
+      <path
+        className="track-line"
         style={styles.path}
         strokeDasharray={strokeDasharray}
         strokeDashoffset={maxValue}
@@ -91,7 +161,8 @@ const Svg = ({
             a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${width - halfTrack * 2}
         `}
       />
-      {doubleLineColor && (
+
+      {/* {doubleLineColor && (
         <path
           style={styles.doubleLine}
           strokeDasharray={strokeDasharray}
@@ -107,7 +178,8 @@ const Svg = ({
             a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${width - halfTrack * 2}
         `}
         />
-      )}
+      )} */}
+
       <path
         style={styles.path}
         ref={svgFullPath}

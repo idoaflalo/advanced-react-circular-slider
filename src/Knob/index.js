@@ -17,10 +17,10 @@ const Knob = ({
   const styles = {
     knob: {
       position: "absolute",
-      left: `-${knobSize / 2 - trackSize / 2}px`,
-      top: `-${knobSize / 2 - trackSize / 2}px`,
+      left: `-${knobSize / 2}px`,
+      top: `-${knobSize / 2}px`,
       cursor: "grab",
-      zIndex: 3,
+      zIndex: 20,
     },
 
     dragging: {

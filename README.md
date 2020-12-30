@@ -1,6 +1,6 @@
 # advanced-react-circular-slider
 
-![](https://img.shields.io/badge/version-2.4.4-green.svg) ![](https://img.shields.io/badge/license-MIT-blue.svg)
+![](https://img.shields.io/badge/version-2.4.5-green.svg) ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
 A highly customizable circular slider with no dependencies. See some [live demos here!](https://jsdev63.github.io/advanced_react-circular-slider/)
 
@@ -39,19 +39,45 @@ import CircularSlider from '@jsdev63/advanced_react-circular-slider';
 
 const App = () => {
     return (
-        <CircularSlider
-            label="savings"
-            labelColor="#005a58"
-            knobColor="#005a58"
-            progressColorFrom="#00bfbd"
-            progressColorTo="#009c9a"
-            progressSize={24}
-            trackColor="#eeeeee"
-            trackSize={24}
-            data={["1€","2€"]} //...
-            dataIndex={10}
-            onChange={ value => { console.log(value); } }
-        />
+<CircularSlider
+width={400}
+limit={270}
+offsetAngle={-45}
+labelOffset={20}
+direction={1}
+data={[
+  {
+    key: 1,
+    value: "STAFFING",
+  },
+  {
+    key: 2,
+    value: "TEAM",
+  },
+  {
+    key: 1,
+    value: "PROJECT",
+  },
+  {
+    key: 1,
+    value: "MANAGED",
+  }
+]}
+knobPosition="bottom"
+valueFontSize="2rem"
+renderLabelValue={null}
+progressLineCap="flat"
+progressSize={16}
+progressColorFrom={'#5215FC'}
+progressColorTo={'#280885'}
+doubleLineType="progress"
+trackColor="#a9a9a9"
+trackSize={16}
+knobColor = "blue"
+knobSize= {40}
+knobEl={<SlideIcon width={40} height={40} />}
+>
+</CircularSlider>
     )
 };
 
@@ -94,6 +120,8 @@ progressSize         | number | 8             | progress track size
 progressLineCap      | string | round         | progress track cap to be **round** or **flat**
 trackColor           | string | #DDDEFB       | background track color
 trackSize            | number | 8             | background track size
+doubleLineType       | string | progress      | type of double line **progress** or **track**
+doubleLineColor      | string | gradiant      | double line color mode **gradiant** or **null** or **color string**
 onChange             | func   | value => {}   | returns label value
 
 

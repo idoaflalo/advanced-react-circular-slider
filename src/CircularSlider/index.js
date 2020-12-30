@@ -69,7 +69,8 @@ const CircularSlider = ({
   progressSize = 8,
   trackColor = "#DDDEFB",
   trackSize = 8,
-  doubleLineColor = "#DDDEFB",
+  doubleLineColor = "gradiant",
+  doubleLineType="progress",
   data = [],
   dataIndex = 0,
   progressLineCap = "round",
@@ -141,7 +142,10 @@ const CircularSlider = ({
 
   const setKnobPosition = useCallback(
     (radians) => {
-      const radius = state.radius - trackSize / 2;
+      if(!state.dashFullArray) {
+        updateState(Math.random());
+        return;
+      }
       const offsetRadians = radians + getOffsetRideans(knobPosition, offsetAngle);
       let degrees = (offsetRadians > 0 ? offsetRadians : 2 * Math.PI + offsetRadians) * (spreadDegrees / (2 * Math.PI));
 
@@ -154,11 +158,19 @@ const CircularSlider = ({
         }
       } else if (knobPosition === "bottom" && degrees > limit) {
         degrees = limit;
+        dragable.current = false;
         return;
       } else if (knobPosition === "top" && degrees < 360 - limit) {
         degrees = 360 - limit;
+        dragable.current = false;
         return;
       }
+      
+      let newDegree = (degrees || 1.3) + 225;
+      newDegree = newDegree > 360 ? newDegree - 360 : newDegree;
+      let pt = svgFullPath.current.getPointAtLength((newDegree * state.dashFullArray) / 360);
+      pt.x = Math.round(pt.x);
+      pt.y = Math.round(pt.y);
 
       // change direction
       const dashOffset = (degrees / spreadDegrees) * state.dashFullArray;
@@ -184,8 +196,8 @@ const CircularSlider = ({
               : (state.dashFullArray || svgFullPath.current.getTotalLength()) - dashOffset,
           label: state.data[currentPoint - 1],
           knob: {
-            x: radius * Math.cos(radians) + radius,
-            y: radius * Math.sin(radians) + radius,
+            x: pt.x, // + Math.cos(radians) * 0
+            y: pt.y, // + Math.sin(radians) * 0
           },
         },
       });
@@ -334,6 +346,7 @@ const CircularSlider = ({
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
+      zIndex: 3,
     },
     mounted: {
       opacity: 1,
@@ -364,6 +377,7 @@ const CircularSlider = ({
         progressColorTo={progressColorTo}
         progressLineCap={progressLineCap}
         doubleLineColor={doubleLineColor}
+        doubleLineType={doubleLineType}
         trackColor={trackColor}
         trackSize={trackSize}
         radiansOffset={state.radians}
@@ -406,7 +420,7 @@ const CircularSlider = ({
           appendToValue={appendToValue}
           prependToValue={prependToValue}
           hideLabelValue={hideLabelValue}
-          value={state.label}
+          selected={state.label}
         />
       )}
     </div>
@@ -419,6 +433,8 @@ CircularSlider.propTypes = {
   direction: PropTypes.number,
   min: PropTypes.number,
   max: PropTypes.number,
+  doubleLineColor: PropTypes.string,
+  doubleLineType: PropTypes.string,
   knobColor: PropTypes.string,
   knobPosition: PropTypes.string,
   hideKnob: PropTypes.bool,
