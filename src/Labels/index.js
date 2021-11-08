@@ -61,6 +61,10 @@ const Labels = ({
     hide: {
       display: "none",
     },
+
+    mainLabel: {
+      fontFamily: "Telex",
+    },
   };
 
   return (
@@ -69,7 +73,7 @@ const Labels = ({
       <div style={{ ...styles.value, ...(!labelBottom && styles.bottomMargin) }}>
         <code>
           <span style={styles.prepended}>{prependToValue}</span>
-          {selected?.value}
+          <span style={styles.mainLabel}>{selected?.value}</span>
           {selected?.value && <span style={styles.appended}>{appendToValue}</span>}
         </code>
       </div>
