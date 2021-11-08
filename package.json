@@ -40,13 +40,14 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint-utils": "^1.4.1",
+    "file-loader": "^6.2.0",
+    "global": "^4.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
     "serialize-javascript": "^3.1.0",
-    "webpack-cli": "^3.3.11",
-    "global": "^4.4.0"
+    "webpack-cli": "^3.3.11"
   },
   "scripts": {
     "start": "react-scripts start",
