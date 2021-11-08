@@ -1,15 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+function convertToFraction(value) {
+  const valueStr = value.toString();
+  if (valueStr === "0.25") return "¼";
+  if (valueStr === "0.5") return "½";
+  if (valueStr === "0.75") return "¾";
+  if (valueStr.endsWith(".25")) return Math.floor(value) + "¼";
+  if (valueStr.endsWith(".5")) return Math.floor(value) + "½";
+  if (valueStr.endsWith(".75")) return Math.floor(value) + "¾";
+  return valueStr;
+}
+
 const Svg = ({
   width,
   limit,
-  max,
   label,
   labelColor,
+  roundLabelColor,
+  roundLabelFontSize,
   labelFontSize,
   labelOffset,
-  activedlabelColor,
+  activeLabelColor,
   direction,
   strokeDasharray,
   strokeDashoffset,
@@ -33,7 +45,6 @@ const Svg = ({
       position: "relative",
       zIndex: 2,
     },
-
     path: {
       transform: `rotate(${radiansOffset}rad) ${direction === -1 ? "scale(-1, 1)" : "scale(1, 1)"}`,
       transformOrigin: "center center",
@@ -47,14 +58,23 @@ const Svg = ({
     },
     text: {
       textAnchor: "middle",
-      fontSize: labelFontSize,
-      fill: labelColor,
+      fontSize: roundLabelFontSize,
+      fill: roundLabelColor,
       cursor: "pointer",
       userSelect: "none",
+      fontFamily: "Telex",
+      transform: "rotate(180deg)",
+      transformOrigin: "center",
+    },
+    title: {
+      opacity: 0.4,
+      transition: "all 0.3s ease-out",
     },
     activedTitle: {
-      fill: activedlabelColor,
-      transition: "all 0.6s ease-in-out",
+      fill: activeLabelColor,
+      fontWeight: "bold",
+      opacity: 1,
+      fontSize: `calc(${roundLabelFontSize} + 0.2rem)`,
     },
   };
 
@@ -85,13 +105,7 @@ const Svg = ({
   };
 
   return (
-    <svg
-      width={`${width}px`}
-      height={`${width}px`}
-      viewBox={`0 0 ${width} ${width}`}
-      overflow="visible"
-      style={styles.svg}
-    >
+    <svg width={`${width}px`} height={`${width}px`} viewBox={`0 0 ${width} ${width}`} overflow="visible" style={styles.svg}>
       <defs>
         <linearGradient id={label} x1="100%" x2="0%">
           <stop offset="0%" stopColor={progressColorFrom} />
@@ -161,25 +175,6 @@ const Svg = ({
             a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${width - halfTrack * 2}
         `}
       />
-
-      {/* {doubleLineColor && (
-        <path
-          style={styles.doubleLine}
-          strokeDasharray={strokeDasharray}
-          strokeDashoffset={strokeDashoffset}
-          strokeWidth={progressSize}
-          strokeLinecap={progressLineCap !== "round" ? "butt" : "round"}
-          fill="none"
-          stroke={doubleLineColor}
-          d={`
-            M ${width / 2}, ${width / 2}
-            m 0, -${width / 2 - halfTrack}
-            a ${width / 2 - halfTrack},${width / 2 - halfTrack} 0 0,1 0,${width - halfTrack * 2}
-            a -${width / 2 - halfTrack},-${width / 2 - halfTrack} 0 0,1 0,-${width - halfTrack * 2}
-        `}
-        />
-      )} */}
-
       <path
         style={styles.path}
         ref={svgFullPath}
@@ -212,17 +207,15 @@ const Svg = ({
       />
 
       <text style={styles.text}>
-        {data?.map((item, key) => (
-          <textPath
-            xlinkHref="#myTextPath"
-            startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`}
-            key={key}
-          >
-            <tspan style={(key === activedItem - 1 && styles.activedTitle) || {}} onClick={() => onLableClick(key + 1)}>
-              {item.value}
-            </tspan>
-          </textPath>
-        ))}
+        {data?.map((item, key) =>
+          item.showLabel ? (
+            <textPath xlinkHref="#myTextPath" startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`} key={item.key}>
+              <tspan style={{ ...styles.title, ...(key === activedItem - 1 && styles.activedTitle) }} onClick={() => onLableClick(key + 1)}>
+                {convertToFraction(item.value)}
+              </tspan>
+            </textPath>
+          ) : null,
+        )}
       </text>
     </svg>
   );

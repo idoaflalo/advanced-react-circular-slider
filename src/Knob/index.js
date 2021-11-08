@@ -62,6 +62,7 @@ const Knob = ({
         ...(isDragging && styles.dragging),
         ...(hideKnob && styles.hide),
       }}
+      onMouseUp={onMouseUp}
       onMouseDown={onMouseDown}
       onTouchStart={onMouseDown}
       onTouchEnd={onMouseUp}

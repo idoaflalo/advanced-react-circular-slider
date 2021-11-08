@@ -3,6 +3,7 @@ import PropTypes, { any } from "prop-types";
 
 const Labels = ({
   labelColor,
+  secondaryLabelColor,
   labelBottom,
   labelFontSize,
   valueFontSize,
@@ -11,7 +12,7 @@ const Labels = ({
   verticalOffset,
   hideLabelValue,
   selected,
-  label,
+  labelTop,
 }) => {
   const styles = {
     labels: {
@@ -24,11 +25,11 @@ const Labels = ({
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      color: `${labelColor}`,
       userSelect: "none",
+      color: labelColor,
       zIndex: 1,
     },
-
+    
     value: {
       fontSize: `${valueFontSize}`,
       position: "relative",
@@ -44,12 +45,17 @@ const Labels = ({
       top: "0",
       transform: "translate(100%, 0)",
     },
-
+    
     prepended: {
       position: "absolute",
       left: "0",
       top: "0",
       transform: "translate(-100%, 0)",
+    },
+
+    secondaryText: {
+      color: secondaryLabelColor,
+      fontSize: labelFontSize
     },
 
     hide: {
@@ -59,15 +65,15 @@ const Labels = ({
 
   return (
     <div style={{ ...styles.labels, ...(hideLabelValue && styles.hide) }}>
-      {labelBottom || <div style={{ fontSize: labelFontSize }}>{label}</div>}
+      <div style={styles.secondaryText}>{labelTop}</div>
       <div style={{ ...styles.value, ...(!labelBottom && styles.bottomMargin) }}>
         <code>
           <span style={styles.prepended}>{prependToValue}</span>
           {selected?.value}
-          {selected?.value && <span style={styles.appended}>2{appendToValue}</span>}
+          {selected?.value && <span style={styles.appended}>{appendToValue}</span>}
         </code>
       </div>
-      {labelBottom && <div style={{ fontSize: labelFontSize }}>{label}</div>}
+      <div style={styles.secondaryText}>{labelBottom}</div>
     </div>
   );
 };
@@ -75,7 +81,8 @@ const Labels = ({
 Labels.propTypes = {
   label: any,
   labelColor: PropTypes.string,
-  labelBottom: PropTypes.bool,
+  secondaryLabelColor: PropTypes.string,
+  labelBottom: PropTypes.string,
   labelFontSize: PropTypes.string,
   valueFontSize: PropTypes.string,
   appendToValue: PropTypes.string,
