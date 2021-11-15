@@ -22,9 +22,9 @@
   "author": "Ido Aflalo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/idoaflalo/advanced_react-circular-slider/issues"
+    "url": "https://github.com/idoaflalo/advanced-react-circular-slider/issues"
   },
-  "homepage": "https://idoaflalo.github.io/advanced_react-circular-slider/",
+  "homepage": "https://idoaflalo.github.io/advanced-react-circular-slider/",
   "peerDependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
