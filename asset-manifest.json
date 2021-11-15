@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/advanced_react-circular-slider/static/css/main.863b3ee0.chunk.css",
-    "main.js": "/advanced_react-circular-slider/static/js/main.b1426c57.chunk.js",
-    "main.js.map": "/advanced_react-circular-slider/static/js/main.b1426c57.chunk.js.map",
-    "runtime-main.js": "/advanced_react-circular-slider/static/js/runtime-main.23611954.js",
-    "runtime-main.js.map": "/advanced_react-circular-slider/static/js/runtime-main.23611954.js.map",
-    "static/js/2.236b0ac4.chunk.js": "/advanced_react-circular-slider/static/js/2.236b0ac4.chunk.js",
-    "static/js/2.236b0ac4.chunk.js.map": "/advanced_react-circular-slider/static/js/2.236b0ac4.chunk.js.map",
-    "index.html": "/advanced_react-circular-slider/index.html",
-    "precache-manifest.68aea5ffb8ee44c9f80f2c9b7a43a390.js": "/advanced_react-circular-slider/precache-manifest.68aea5ffb8ee44c9f80f2c9b7a43a390.js",
-    "service-worker.js": "/advanced_react-circular-slider/service-worker.js",
-    "static/css/main.863b3ee0.chunk.css.map": "/advanced_react-circular-slider/static/css/main.863b3ee0.chunk.css.map",
-    "static/js/2.236b0ac4.chunk.js.LICENSE.txt": "/advanced_react-circular-slider/static/js/2.236b0ac4.chunk.js.LICENSE.txt",
-    "static/media/slide.2c07837d.svg": "/advanced_react-circular-slider/static/media/slide.2c07837d.svg"
+    "main.css": "/advanced-react-circular-slider/static/css/main.3c74f173.chunk.css",
+    "main.js": "/advanced-react-circular-slider/static/js/main.ee4a1da8.chunk.js",
+    "main.js.map": "/advanced-react-circular-slider/static/js/main.ee4a1da8.chunk.js.map",
+    "runtime-main.js": "/advanced-react-circular-slider/static/js/runtime-main.e8508445.js",
+    "runtime-main.js.map": "/advanced-react-circular-slider/static/js/runtime-main.e8508445.js.map",
+    "static/js/2.f957d2cc.chunk.js": "/advanced-react-circular-slider/static/js/2.f957d2cc.chunk.js",
+    "static/js/2.f957d2cc.chunk.js.map": "/advanced-react-circular-slider/static/js/2.f957d2cc.chunk.js.map",
+    "index.html": "/advanced-react-circular-slider/index.html",
+    "precache-manifest.47ee6a75dd51baed9244a41e6cc731d5.js": "/advanced-react-circular-slider/precache-manifest.47ee6a75dd51baed9244a41e6cc731d5.js",
+    "service-worker.js": "/advanced-react-circular-slider/service-worker.js",
+    "static/css/main.3c74f173.chunk.css.map": "/advanced-react-circular-slider/static/css/main.3c74f173.chunk.css.map",
+    "static/js/2.f957d2cc.chunk.js.LICENSE.txt": "/advanced-react-circular-slider/static/js/2.f957d2cc.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/advanced-react-circular-slider/static/media/Telex.6fb23c12.ttf"
   },
   "entrypoints": [
-    "static/js/runtime-main.23611954.js",
-    "static/js/2.236b0ac4.chunk.js",
-    "static/css/main.863b3ee0.chunk.css",
-    "static/js/main.b1426c57.chunk.js"
+    "static/js/runtime-main.e8508445.js",
+    "static/js/2.f957d2cc.chunk.js",
+    "static/css/main.3c74f173.chunk.css",
+    "static/js/main.ee4a1da8.chunk.js"
   ]
 }
