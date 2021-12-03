@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/advanced-react-circular-slider/static/css/main.3c74f173.chunk.css",
-    "main.js": "/advanced-react-circular-slider/static/js/main.ee4a1da8.chunk.js",
-    "main.js.map": "/advanced-react-circular-slider/static/js/main.ee4a1da8.chunk.js.map",
+    "main.js": "/advanced-react-circular-slider/static/js/main.a3dbed54.chunk.js",
+    "main.js.map": "/advanced-react-circular-slider/static/js/main.a3dbed54.chunk.js.map",
     "runtime-main.js": "/advanced-react-circular-slider/static/js/runtime-main.e8508445.js",
     "runtime-main.js.map": "/advanced-react-circular-slider/static/js/runtime-main.e8508445.js.map",
     "static/js/2.f957d2cc.chunk.js": "/advanced-react-circular-slider/static/js/2.f957d2cc.chunk.js",
     "static/js/2.f957d2cc.chunk.js.map": "/advanced-react-circular-slider/static/js/2.f957d2cc.chunk.js.map",
     "index.html": "/advanced-react-circular-slider/index.html",
-    "precache-manifest.47ee6a75dd51baed9244a41e6cc731d5.js": "/advanced-react-circular-slider/precache-manifest.47ee6a75dd51baed9244a41e6cc731d5.js",
+    "precache-manifest.5675f9811c912a4491abfe09a825700c.js": "/advanced-react-circular-slider/precache-manifest.5675f9811c912a4491abfe09a825700c.js",
     "service-worker.js": "/advanced-react-circular-slider/service-worker.js",
     "static/css/main.3c74f173.chunk.css.map": "/advanced-react-circular-slider/static/css/main.3c74f173.chunk.css.map",
     "static/js/2.f957d2cc.chunk.js.LICENSE.txt": "/advanced-react-circular-slider/static/js/2.f957d2cc.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.e8508445.js",
     "static/js/2.f957d2cc.chunk.js",
     "static/css/main.3c74f173.chunk.css",
-    "static/js/main.ee4a1da8.chunk.js"
+    "static/js/main.a3dbed54.chunk.js"
   ]
 }
