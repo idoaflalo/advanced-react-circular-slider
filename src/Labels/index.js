@@ -74,7 +74,7 @@ const Labels = ({
         <code>
           <span style={styles.prepended}>{prependToValue}</span>
           <span style={styles.mainLabel}>{selected?.value}</span>
-          {selected?.value && <span style={styles.appended}>{appendToValue}</span>}
+          {selected?.value !== undefined && <span style={styles.appended}>{appendToValue}</span>}
         </code>
       </div>
       <div style={styles.secondaryText}>{labelBottom}</div>

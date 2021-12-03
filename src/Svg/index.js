@@ -193,7 +193,7 @@ const Svg = ({
       />
 
       <path
-        id="myTextPath"
+        id="circularLabels"
         d={`
           M ${curveRadian},${curveRadian} m ${-curveRadian}, 0  
           A ${curveRadian},${curveRadian} 0 0 1 0,${curveRadian} 
@@ -206,17 +206,17 @@ const Svg = ({
         stroke="none"
       />
 
-      <text style={styles.text}>
-        {data?.map((item, key) =>
-          item.showLabel ? (
-            <textPath xlinkHref="#myTextPath" startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`} key={item.key}>
+      {data?.map((item, key) =>
+        item.showLabel ? (
+          <text style={styles.text}>
+            <textPath href="#circularLabels" startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`} key={item.key}>
               <tspan style={{ ...styles.title, ...(key === activedItem - 1 && styles.activedTitle) }} onClick={() => onLableClick(key + 1)}>
                 {convertToFraction(item.value)}
               </tspan>
             </textPath>
-          ) : null,
-        )}
-      </text>
+          </text>
+        ) : null,
+      )}
     </svg>
   );
 };

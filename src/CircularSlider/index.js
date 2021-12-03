@@ -33,7 +33,7 @@ const generateRange = (min, max, step, labelStep) => {
   const data = [];
   for (let num = min; +num.toFixed(2) <= max; num += step) {
     const key = +num.toFixed(2);
-    data.push({ key, value: key.toString(), showLabel: key % labelStep === 0 });
+    data.push({ key: key.toString(), value: key, showLabel: key % labelStep === 0 });
   }
 
   return data;
