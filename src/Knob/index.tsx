@@ -1,19 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./index.css";
 
-const Knob = ({
-  knobRef,
-  isDragging,
-  knobPosition,
-  knobColor,
-  knobSize,
-  hideKnob,
-  onMouseDown,
-  onMouseUp,
-  trackSize,
-  children,
-}) => {
+const Knob = ({ knobRef, isDragging, knobPosition, knobColor, knobSize, hideKnob, onMouseDown, onMouseUp, children }: Props) => {
   const styles = {
     knob: {
       position: "absolute",
@@ -61,7 +49,7 @@ const Knob = ({
         ...styles.knob,
         ...(isDragging && styles.dragging),
         ...(hideKnob && styles.hide),
-      }}
+      } as any}
       onMouseUp={onMouseUp}
       onMouseDown={onMouseDown}
       onTouchStart={onMouseDown}
@@ -84,15 +72,17 @@ const Knob = ({
   );
 };
 
-Knob.propTypes = {
-  isDragging: PropTypes.bool,
-  knobPosition: PropTypes.object,
-  knobColor: PropTypes.string,
-  knobRadius: PropTypes.number,
-  knobSize: PropTypes.number,
-  trackSize: PropTypes.number,
-  children: PropTypes.element,
-  onMouseDown: PropTypes.func,
-};
+interface Props {
+  knobRef: any;
+  isDragging: boolean;
+  hideKnob: boolean;
+  knobPosition: any;
+  knobColor: string;
+  knobSize: number;
+  trackSize: number;
+  children: any;
+  onMouseDown: any;
+  onMouseUp: any;
+}
 
 export default Knob;

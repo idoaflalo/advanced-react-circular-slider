@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 function convertToFraction(value) {
   const valueStr = value.toString();
@@ -39,7 +38,7 @@ const Svg = ({
   data,
   activedItem = 0,
   onLableClick,
-}) => {
+}: Props) => {
   const styles = {
     svg: {
       position: "relative",
@@ -102,10 +101,12 @@ const Svg = ({
     } else if (doubleLineColor) {
       return doubleLineColor;
     }
+
+    return undefined;
   };
 
   return (
-    <svg width={`${width}px`} height={`${width}px`} viewBox={`0 0 ${width} ${width}`} overflow="visible" style={styles.svg}>
+    <svg width={`${width}px`} height={`${width}px`} viewBox={`0 0 ${width} ${width}`} overflow="visible" style={styles.svg as any}>
       <defs>
         <linearGradient id={label} x1="100%" x2="0%">
           <stop offset="0%" stopColor={progressColorFrom} />
@@ -128,8 +129,8 @@ const Svg = ({
         strokeDasharray={strokeDasharray}
         strokeDashoffset={maxValue}
         strokeWidth={1}
-        stroke={null}
-        strokeLinecap={progressLineCap}
+        stroke={undefined}
+        strokeLinecap={progressLineCap as any}
         fill="transparent"
         d={`
             M ${width / 2}, ${width / 2}
@@ -144,11 +145,11 @@ const Svg = ({
           className="double-track"
           ref={doubleTrackRef}
           style={styles.path}
-          strokeDasharray={getValue(doubleTrackRef)}
+          strokeDasharray={getValue(doubleTrackRef, undefined)}
           strokeDashoffset={getValue(doubleTrackRef, doubleLineType)}
           strokeWidth={trackSize}
           stroke={getDoubleLineColor()}
-          strokeLinecap={progressLineCap}
+          strokeLinecap={progressLineCap as any}
           fill="none"
           d={`
             M ${width / 2}, ${width / 2}
@@ -166,7 +167,7 @@ const Svg = ({
         strokeDashoffset={maxValue}
         strokeWidth={trackSize}
         stroke={trackColor}
-        strokeLinecap={progressLineCap}
+        strokeLinecap={progressLineCap as any}
         fill="none"
         d={`
             M ${width / 2}, ${width / 2}
@@ -208,9 +209,9 @@ const Svg = ({
 
       {data?.map((item, key) =>
         item.showLabel ? (
-          <text style={styles.text} key={item.key}>
+          <text style={styles.text as any} key={item.key}>
             <textPath href="#circularLabels" startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`}>
-              <tspan style={{ ...styles.title, ...(key === activedItem - 1 && styles.activedTitle) }} onClick={() => onLableClick(key + 1)}>
+              <tspan style={{ ...styles.title, ...(activedItem && key === activedItem - 1 && styles.activedTitle) }} onClick={() => onLableClick(key + 1)}>
                 {convertToFraction(item.value)}
               </tspan>
             </textPath>
@@ -221,20 +222,33 @@ const Svg = ({
   );
 };
 
-Svg.propTypes = {
-  width: PropTypes.number,
-  label: PropTypes.string,
-  direction: PropTypes.number,
-  svgFullPath: PropTypes.object,
-  strokeDasharray: PropTypes.number,
-  strokeDashoffset: PropTypes.number,
-  progressColorFrom: PropTypes.string,
-  progressColorTo: PropTypes.string,
-  progressLineCap: PropTypes.string,
-  progressSize: PropTypes.number,
-  trackColor: PropTypes.string,
-  trackSize: PropTypes.number,
-  radiansOffset: PropTypes.number,
+interface Props {
+  width: number,
+  limit: number,
+  label: string,
+  labelColor: string,
+  roundLabelColor: string,
+  roundLabelFontSize: string,
+  labelFontSize: string,
+  labelOffset: number,
+  activeLabelColor: string,
+  direction: number,
+  strokeDasharray: number,
+  strokeDashoffset: number,
+  progressColorFrom: string,
+  progressColorTo: string,
+  trackColor: string,
+  doubleLineColor: string| null,
+  doubleLineType: string,
+  progressSize: number,
+  trackSize: number,
+  svgFullPath: any,
+  radiansOffset: number,
+  progressLineCap: string,
+  offsetAngle: number,
+  data: any[],
+  activedItem: number | null,
+  onLableClick: Function,
 };
 
 export default Svg;

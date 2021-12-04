@@ -31,11 +31,10 @@
     "global": "^4.4.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "babel-loader": "^8.1.0",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "@types/styled-components": "^5.1.16",
+    "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^3.6.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -48,6 +47,8 @@
     "react-dom": "^16.13.1",
     "react-scripts": "^4.0.3",
     "serialize-javascript": "^3.1.0",
+    "source-map-loader": "^3.0.0",
+    "typescript": "^4.5.2",
     "webpack-cli": "^4.9.1"
   },
   "scripts": {

@@ -1,6 +1,5 @@
 import window from "global";
-import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useReducer, useRef } from "react";
+import React, { useCallback, useEffect, useReducer, useRef, ReactElement } from "react";
 import "../fonts";
 import useIsServer from "../hooks/useIsServer";
 import Knob from "../Knob";
@@ -30,7 +29,7 @@ const getRadians = (degrees) => {
 };
 
 const generateRange = (min, max, step, labelStep) => {
-  const data = [];
+  const data: object[] = [];
   for (let num = min; +num.toFixed(2) <= max; num += step) {
     const key = +num.toFixed(2);
     data.push({ key: key.toString(), value: key, showLabel: key % labelStep === 0 });
@@ -81,7 +80,7 @@ const CircularSlider = ({
   progressLineCap = "round",
   renderLabelValue = null,
   onChange = (value) => {},
-}) => {
+}: Props) => {
   const contentWidth = width - 2 * labelOffset;
   const initialState = {
     mounted: false,
@@ -102,14 +101,14 @@ const CircularSlider = ({
   };
 
   const circularSlider = useRef(null);
-  const knobRef = useRef(null);
-  const svgFullPath = useRef(null);
+  const knobRef = useRef<any>(null);
+  const svgFullPath = useRef<any>(null);
   const lastAngle = useRef(0);
-  const dragable = useRef(undefined);
+  const dragable = useRef<boolean | undefined>(undefined);
   const isServer = useIsServer();
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [activedItem, setActived] = React.useState(null);
-  const [updatedKey, updateState] = React.useState(null);
+  const [activedItem, setActived] = React.useState<number | null>(null);
+  const [updatedKey, updateState] = React.useState<number | null>(null);
 
   const setKnobPosition = useCallback(
     (radians) => {
@@ -136,7 +135,7 @@ const CircularSlider = ({
 
       let newDegree = degrees + limit - offsetAngle;
       newDegree = newDegree > 360 ? newDegree - 360 : newDegree;
-      let pt = svgFullPath.current.getPointAtLength((newDegree * state.dashFullArray) / 360);
+      let pt = (svgFullPath.current as any).getPointAtLength((newDegree * state.dashFullArray) / 360);
       pt.x = Math.round(pt.x);
       pt.y = Math.round(pt.y);
 
@@ -152,7 +151,7 @@ const CircularSlider = ({
       if (Math.abs(closestPointDegrees - degrees) <= magentTolerance && state.data[currentPoint - 1]?.showLabel) {
         newDegree = closestPointDegrees + limit - offsetAngle;
         newDegree = newDegree > 360 ? newDegree - 360 : newDegree;
-        pt = svgFullPath.current.getPointAtLength((newDegree * state.dashFullArray) / 360);
+        pt = (svgFullPath.current as any).getPointAtLength((newDegree * state.dashFullArray) / 360);
         pt.x = Math.round(pt.x);
         pt.y = Math.round(pt.y);
         dashOffset = (closestPointDegrees / spreadDegrees) * state.dashFullArray;
@@ -321,7 +320,6 @@ const CircularSlider = ({
       <Svg
         width={contentWidth}
         limit={limit}
-        max={max}
         label={sanitizedLabel}
         labelOffset={labelOffset}
         direction={direction}
@@ -339,7 +337,6 @@ const CircularSlider = ({
         radiansOffset={state.radians}
         offsetAngle={offsetAngle}
         labelColor={labelColor}
-        secondaryLabelColor={secondaryLabelColor}
         roundLabelColor={roundLabelColor}
         roundLabelFontSize={roundLabelFontSize}
         labelFontSize={labelFontSize}
@@ -367,7 +364,7 @@ const CircularSlider = ({
         </Knob>
       )}
       {renderLabelValue ? (
-        <div style={styles.value}>{renderLabelValue}</div>
+        <div style={styles.value as any}>{renderLabelValue}</div>
       ) : (
         <Labels
           labelTop={labelTop}
@@ -387,43 +384,49 @@ const CircularSlider = ({
   );
 };
 
-CircularSlider.propTypes = {
-  label: PropTypes.string,
-  width: PropTypes.number,
-  direction: PropTypes.number,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  step: PropTypes.number,
-  labelStep: PropTypes.number,
-  doubleLineColor: PropTypes.string,
-  doubleLineType: PropTypes.string,
-  knobColor: PropTypes.string,
-  knobPosition: PropTypes.string,
-  hideKnob: PropTypes.bool,
-  knobDraggable: PropTypes.bool,
-  knobEl: PropTypes.element,
-  labelColor: PropTypes.string,
-  secondaryLabelColor: PropTypes.string,
-  roundLabelColor: PropTypes.string,
-  labelBottom: PropTypes.string,
-  labelFontSize: PropTypes.string,
-  roundLabelFontSize: PropTypes.string,
-  valueFontSize: PropTypes.string,
-  appendToValue: PropTypes.string,
-  renderLabelValue: PropTypes.element,
-  prependToValue: PropTypes.string,
-  verticalOffset: PropTypes.string,
-  hideLabelValue: PropTypes.bool,
-  progressLineCap: PropTypes.string,
-  progressColorFrom: PropTypes.string,
-  progressColorTo: PropTypes.string,
-  progressSize: PropTypes.number,
-  trackColor: PropTypes.string,
-  trackSize: PropTypes.number,
-  data: PropTypes.array,
-  dataIndex: PropTypes.number,
-  magentTolerance: PropTypes.number,
-  onChange: PropTypes.func,
-};
+interface Props {
+  label?: string;
+  width?: number;
+  direction?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  limit?: number;
+  labelTop?: string;
+  labelStep?: number;
+  offsetAngle?: number;
+  knobSize?: number;
+  doubleLineColor?: string | null;
+  doubleLineType?: string;
+  knobColor?: string;
+  knobPosition?: string;
+  hideKnob?: boolean;
+  knobDraggable?: boolean;
+  knobEl?: ReactElement | null;
+  labelColor?: string;
+  labelOffset?: number;
+  secondaryLabelColor?: string;
+  roundLabelColor?: string;
+  labelBottom?: string;
+  labelFontSize?: string;
+  roundLabelFontSize?: string;
+  valueFontSize?: string;
+  appendToValue?: string;
+  renderLabelValue?: ReactElement | null;
+  prependToValue?: string;
+  verticalOffset?: string;
+  hideLabelValue?: boolean;
+  progressLineCap?: string;
+  progressColorFrom?: string;
+  progressColorTo?: string;
+  progressSize?: number;
+  trackColor?: string;
+  trackSize?: number;
+  data?: any[];
+  dataIndex?: number;
+  activeLabelColor?: string;
+  magentTolerance?: number;
+  onChange?: Function;
+}
 
 export default CircularSlider;

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes, { any } from "prop-types";
 
 const Labels = ({
   labelColor,
@@ -13,7 +12,7 @@ const Labels = ({
   hideLabelValue,
   selected,
   labelTop,
-}) => {
+}: Props) => {
   const styles = {
     labels: {
       position: "absolute",
@@ -30,7 +29,7 @@ const Labels = ({
       fontFamily: `"Segoe UI", "Roboto"`,
       zIndex: 1,
     },
-    
+
     value: {
       fontSize: `${valueFontSize}`,
       position: "relative",
@@ -46,7 +45,7 @@ const Labels = ({
       top: "0",
       transform: "translate(100%, 0)",
     },
-    
+
     prepended: {
       position: "absolute",
       left: "0",
@@ -56,7 +55,7 @@ const Labels = ({
 
     secondaryText: {
       color: secondaryLabelColor,
-      fontSize: labelFontSize
+      fontSize: labelFontSize,
     },
 
     hide: {
@@ -69,13 +68,13 @@ const Labels = ({
   };
 
   return (
-    <div style={{ ...styles.labels, ...(hideLabelValue && styles.hide) }}>
+    <div style={{ ...styles.labels, ...(hideLabelValue && styles.hide) } as any}>
       <div style={styles.secondaryText}>{labelTop}</div>
-      <div style={{ ...styles.value, ...(!labelBottom && styles.bottomMargin) }}>
+      <div style={{ ...styles.value, ...(!labelBottom && styles.bottomMargin) } as any}>
         <code>
-          <span style={styles.prepended}>{prependToValue}</span>
+          <span style={styles.prepended as any}>{prependToValue}</span>
           <span style={styles.mainLabel}>{selected?.value}</span>
-          {selected?.value !== undefined && <span style={styles.appended}>{appendToValue}</span>}
+          {selected?.value !== undefined && <span style={styles.appended as any}>{appendToValue}</span>}
         </code>
       </div>
       <div style={styles.secondaryText}>{labelBottom}</div>
@@ -83,17 +82,18 @@ const Labels = ({
   );
 };
 
-Labels.propTypes = {
-  label: any,
-  labelColor: PropTypes.string,
-  secondaryLabelColor: PropTypes.string,
-  labelBottom: PropTypes.string,
-  labelFontSize: PropTypes.string,
-  valueFontSize: PropTypes.string,
-  appendToValue: PropTypes.string,
-  prependToValue: PropTypes.string,
-  verticalOffset: PropTypes.string,
-  hideLabelValue: PropTypes.bool,
-};
+interface Props {
+  labelColor: string;
+  secondaryLabelColor: string;
+  labelBottom: string;
+  labelFontSize: string;
+  valueFontSize: string;
+  appendToValue: string;
+  prependToValue: string;
+  verticalOffset: string;
+  hideLabelValue: boolean;
+  selected: any;
+  labelTop: string;
+}
 
 export default Labels;

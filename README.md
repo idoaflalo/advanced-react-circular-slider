@@ -19,6 +19,7 @@ npm install advanced-react-circular-slider
 ```javascript
 import React from 'react';
 import CircularSlider from 'advanced-react-circular-slider';
+import 'advanced-react-circular-slider/main.css';
 
 const App = () => {
     return (
