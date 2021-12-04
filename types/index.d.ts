@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactElement } from "react";
 
-declare module "react-d3-components" {
+declare module "advanced-react-circular-slider" {
   export class CircularSlider extends React.Component<CircularSliderProps & any, any> {}
 
   interface CircularSliderProps {
