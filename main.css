@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "Telex";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/Telex.ttf) format("truetype");
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(0.8);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+

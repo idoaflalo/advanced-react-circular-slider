@@ -208,8 +208,8 @@ const Svg = ({
 
       {data?.map((item, key) =>
         item.showLabel ? (
-          <text style={styles.text}>
-            <textPath href="#circularLabels" startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`} key={item.key}>
+          <text style={styles.text} key={item.key}>
+            <textPath href="#circularLabels" startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`}>
               <tspan style={{ ...styles.title, ...(key === activedItem - 1 && styles.activedTitle) }} onClick={() => onLableClick(key + 1)}>
                 {convertToFraction(item.value)}
               </tspan>

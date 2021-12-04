@@ -27,6 +27,7 @@ const Labels = ({
       alignItems: "center",
       userSelect: "none",
       color: labelColor,
+      fontFamily: `"Segoe UI", "Roboto"`,
       zIndex: 1,
     },
     

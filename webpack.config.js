@@ -1,4 +1,7 @@
-var path = require('path');
+const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+
 module.exports = {
     mode: 'production',
     entry: './src/CircularSlider/index.js',
@@ -7,6 +10,7 @@ module.exports = {
         filename: 'index.js',
         libraryTarget: 'commonjs2' // THIS IS THE MOST IMPORTANT LINE! :mindblow: I wasted more than 2 days until realize this was the line most important in all this guide.
     },
+    plugins: [new MiniCssExtractPlugin()],
     module: {
         rules: [
             {
@@ -19,7 +23,7 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ['css-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
                 test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
