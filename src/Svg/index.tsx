@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 
 function convertToFraction(value) {
   const valueStr = value.toString();
@@ -11,7 +11,7 @@ function convertToFraction(value) {
   return valueStr;
 }
 
-const Svg = ({
+const Svg: FC<Props> = ({
   width,
   limit,
   label,
@@ -38,7 +38,7 @@ const Svg = ({
   data,
   activedItem = 0,
   onLableClick,
-}: Props) => {
+}) => {
   const styles = {
     svg: {
       position: "relative",

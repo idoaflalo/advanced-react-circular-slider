@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 
-const Labels = ({
+const Labels: FC<Props> = ({
   labelColor,
   secondaryLabelColor,
   labelBottom,
@@ -12,7 +12,7 @@ const Labels = ({
   hideLabelValue,
   selected,
   labelTop,
-}: Props) => {
+}) => {
   const styles = {
     labels: {
       position: "absolute",

@@ -1,5 +1,5 @@
 import window from "global";
-import React, { useCallback, useEffect, useReducer, useRef, ReactElement } from "react";
+import React, { useCallback, useEffect, useReducer, useRef, ReactElement, FC } from "react";
 import "../fonts";
 import useIsServer from "../hooks/useIsServer";
 import Knob from "../Knob";
@@ -38,7 +38,7 @@ const generateRange = (min, max, step, labelStep) => {
   return data;
 };
 
-const CircularSlider = ({
+const CircularSlider: FC<Props> = ({
   width = 280,
   direction = 1,
   min = 0,
@@ -80,7 +80,7 @@ const CircularSlider = ({
   progressLineCap = "round",
   renderLabelValue = null,
   onChange = (value) => {},
-}: Props) => {
+}) => {
   const contentWidth = width - 2 * labelOffset;
   const initialState = {
     mounted: false,
