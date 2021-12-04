@@ -13,7 +13,7 @@ const Labels: FC<Props> = ({
   selected,
   labelTop,
 }) => {
-  const styles = {
+  const styles: { [key: string]: React.CSSProperties } = {
     labels: {
       position: "absolute",
       top: "0",
@@ -68,13 +68,13 @@ const Labels: FC<Props> = ({
   };
 
   return (
-    <div style={{ ...styles.labels, ...(hideLabelValue && styles.hide) } as any}>
+    <div style={{ ...styles.labels, ...(hideLabelValue && styles.hide) }}>
       <div style={styles.secondaryText}>{labelTop}</div>
-      <div style={{ ...styles.value, ...(!labelBottom && styles.bottomMargin) } as any}>
+      <div style={{ ...styles.value, ...(!labelBottom && styles.bottomMargin) }}>
         <code>
-          <span style={styles.prepended as any}>{prependToValue}</span>
+          <span style={styles.prepended}>{prependToValue}</span>
           <span style={styles.mainLabel}>{selected?.value}</span>
-          {selected?.value !== undefined && <span style={styles.appended as any}>{appendToValue}</span>}
+          {selected?.value !== undefined && <span style={styles.appended}>{appendToValue}</span>}
         </code>
       </div>
       <div style={styles.secondaryText}>{labelBottom}</div>

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import "./index.css";
 
 const Knob: FC<Props> = ({ knobRef, isDragging, knobPosition, knobColor, knobSize, hideKnob, onMouseDown, onMouseUp, children }) => {
-  const styles = {
+  const styles: { [key: string]: React.CSSProperties } = {
     knob: {
       position: "absolute",
       left: `-${knobSize / 2}px`,
@@ -44,14 +44,12 @@ const Knob: FC<Props> = ({ knobRef, isDragging, knobPosition, knobColor, knobSiz
 
   return (
     <div
-      style={
-        {
-          transform: `translate(${knobPosition.x}px, ${knobPosition.y}px)`,
-          ...styles.knob,
-          ...(isDragging && styles.dragging),
-          ...(hideKnob && styles.hide),
-        } as any
-      }
+      style={{
+        transform: `translate(${knobPosition.x}px, ${knobPosition.y}px)`,
+        ...styles.knob,
+        ...(isDragging && styles.dragging),
+        ...(hideKnob && styles.hide),
+      }}
       onMouseUp={onMouseUp}
       onMouseDown={onMouseDown}
       onTouchStart={onMouseDown}

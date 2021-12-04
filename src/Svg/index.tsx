@@ -39,7 +39,7 @@ const Svg: FC<Props> = ({
   activedItem = 0,
   onLableClick,
 }) => {
-  const styles = {
+  const styles: { [key: string]: React.CSSProperties } = {
     svg: {
       position: "relative",
       zIndex: 2,
@@ -106,7 +106,7 @@ const Svg: FC<Props> = ({
   };
 
   return (
-    <svg width={`${width}px`} height={`${width}px`} viewBox={`0 0 ${width} ${width}`} overflow="visible" style={styles.svg as any}>
+    <svg width={`${width}px`} height={`${width}px`} viewBox={`0 0 ${width} ${width}`} overflow="visible" style={styles.svg}>
       <defs>
         <linearGradient id={label} x1="100%" x2="0%">
           <stop offset="0%" stopColor={progressColorFrom} />
@@ -130,7 +130,7 @@ const Svg: FC<Props> = ({
         strokeDashoffset={maxValue}
         strokeWidth={1}
         stroke={undefined}
-        strokeLinecap={progressLineCap as any}
+        strokeLinecap={progressLineCap}
         fill="transparent"
         d={`
             M ${width / 2}, ${width / 2}
@@ -149,7 +149,7 @@ const Svg: FC<Props> = ({
           strokeDashoffset={getValue(doubleTrackRef, doubleLineType)}
           strokeWidth={trackSize}
           stroke={getDoubleLineColor()}
-          strokeLinecap={progressLineCap as any}
+          strokeLinecap={progressLineCap}
           fill="none"
           d={`
             M ${width / 2}, ${width / 2}
@@ -167,7 +167,7 @@ const Svg: FC<Props> = ({
         strokeDashoffset={maxValue}
         strokeWidth={trackSize}
         stroke={trackColor}
-        strokeLinecap={progressLineCap as any}
+        strokeLinecap={progressLineCap}
         fill="none"
         d={`
             M ${width / 2}, ${width / 2}
@@ -209,7 +209,7 @@ const Svg: FC<Props> = ({
 
       {data?.map((item, key) =>
         item.showLabel ? (
-          <text style={styles.text as any} key={item.key}>
+          <text style={styles.text} key={item.key}>
             <textPath href="#circularLabels" startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`}>
               <tspan style={{ ...styles.title, ...(activedItem && key === activedItem - 1 && styles.activedTitle) }} onClick={() => onLableClick(key + 1)}>
                 {convertToFraction(item.value)}
@@ -244,7 +244,7 @@ interface Props {
   trackSize: number,
   svgFullPath: any,
   radiansOffset: number,
-  progressLineCap: string,
+  progressLineCap: "butt" | "round" | "square" | "inherit" | undefined,
   offsetAngle: number,
   data: any[],
   activedItem: number | null,

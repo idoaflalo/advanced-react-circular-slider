@@ -135,7 +135,7 @@ const CircularSlider: FC<Props> = ({
 
       let newDegree = degrees + limit - offsetAngle;
       newDegree = newDegree > 360 ? newDegree - 360 : newDegree;
-      let pt = (svgFullPath.current as any).getPointAtLength((newDegree * state.dashFullArray) / 360);
+      let pt = (svgFullPath.current).getPointAtLength((newDegree * state.dashFullArray) / 360);
       pt.x = Math.round(pt.x);
       pt.y = Math.round(pt.y);
 
@@ -151,7 +151,7 @@ const CircularSlider: FC<Props> = ({
       if (Math.abs(closestPointDegrees - degrees) <= magentTolerance && state.data[currentPoint - 1]?.showLabel) {
         newDegree = closestPointDegrees + limit - offsetAngle;
         newDegree = newDegree > 360 ? newDegree - 360 : newDegree;
-        pt = (svgFullPath.current as any).getPointAtLength((newDegree * state.dashFullArray) / 360);
+        pt = (svgFullPath.current).getPointAtLength((newDegree * state.dashFullArray) / 360);
         pt.x = Math.round(pt.x);
         pt.y = Math.round(pt.y);
         dashOffset = (closestPointDegrees / spreadDegrees) * state.dashFullArray;
@@ -278,7 +278,7 @@ const CircularSlider: FC<Props> = ({
 
   const sanitizedLabel = labelTop.replace(/[\W_]/g, "_");
 
-  const styles = {
+  const styles: { [key: string]: React.CSSProperties } = {
     circularSlider: {
       position: "relative",
       display: "inline-block",
@@ -364,7 +364,7 @@ const CircularSlider: FC<Props> = ({
         </Knob>
       )}
       {renderLabelValue ? (
-        <div style={styles.value as any}>{renderLabelValue}</div>
+        <div style={styles.value}>{renderLabelValue}</div>
       ) : (
         <Labels
           labelTop={labelTop}
@@ -416,7 +416,7 @@ interface Props {
   prependToValue?: string;
   verticalOffset?: string;
   hideLabelValue?: boolean;
-  progressLineCap?: string;
+  progressLineCap?: "butt" | "round" | "square" | "inherit" | undefined;
   progressColorFrom?: string;
   progressColorTo?: string;
   progressSize?: number;
