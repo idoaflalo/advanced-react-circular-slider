@@ -58,7 +58,6 @@
     "eject": "react-scripts eject",
     "build-npm": "webpack-cli",
     "gh-pages": "git subtree push --prefix build origin gh-pages && git push -u origin master",
-    "publish": "npm publish"
   },
   "eslintConfig": {
     "extends": "react-app"
