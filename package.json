@@ -1,6 +1,6 @@
 {
   "name": "advanced-react-circular-slider",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "Advanced circular slider with no dependencies.",
   "main": "index.js",
   "repository": {
@@ -57,7 +57,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build-npm": "webpack-cli",
-    "gh-pages": "git subtree push --prefix build origin gh-pages && git push -u origin master"
+    "gh-pages": "npm run build && git subtree push --prefix build origin gh-pages && git push -u origin master"
   },
   "eslintConfig": {
     "extends": "react-app"

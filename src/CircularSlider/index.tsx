@@ -1,5 +1,6 @@
 import window from "global";
-import React, { useCallback, useEffect, useReducer, useRef, ReactElement, FC } from "react";
+import { CircularSliderProps } from "interfaces";
+import React, { useCallback, useEffect, useReducer, useRef, FC } from "react";
 import "../fonts";
 import useIsServer from "../hooks/useIsServer";
 import Knob from "../Knob";
@@ -38,7 +39,7 @@ const generateRange = (min, max, step, labelStep) => {
   return data;
 };
 
-const CircularSlider: FC<Props> = ({
+const CircularSlider: FC<CircularSliderProps> = ({
   width = 280,
   direction = 1,
   min = 0,
@@ -79,7 +80,7 @@ const CircularSlider: FC<Props> = ({
   magentTolerance = 10,
   progressLineCap = "round",
   renderLabelValue = null,
-  onChange = (value) => {},
+  onChange = (value: object) => {},
 }) => {
   const contentWidth = width - 2 * labelOffset;
   const initialState = {
@@ -383,50 +384,5 @@ const CircularSlider: FC<Props> = ({
     </div>
   );
 };
-
-interface Props {
-  label?: string;
-  width?: number;
-  direction?: number;
-  min?: number;
-  max?: number;
-  step?: number;
-  limit?: number;
-  labelTop?: string;
-  labelStep?: number;
-  offsetAngle?: number;
-  knobSize?: number;
-  doubleLineColor?: string | null;
-  doubleLineType?: string;
-  knobColor?: string;
-  knobPosition?: string;
-  hideKnob?: boolean;
-  knobDraggable?: boolean;
-  knobEl?: ReactElement | null;
-  labelColor?: string;
-  labelOffset?: number;
-  secondaryLabelColor?: string;
-  roundLabelColor?: string;
-  labelBottom?: string;
-  labelFontSize?: string;
-  roundLabelFontSize?: string;
-  valueFontSize?: string;
-  appendToValue?: string;
-  renderLabelValue?: ReactElement | null;
-  prependToValue?: string;
-  verticalOffset?: string;
-  hideLabelValue?: boolean;
-  progressLineCap?: "butt" | "round" | "square" | "inherit" | undefined;
-  progressColorFrom?: string;
-  progressColorTo?: string;
-  progressSize?: number;
-  trackColor?: string;
-  trackSize?: number;
-  data?: any[];
-  dataIndex?: number;
-  activeLabelColor?: string;
-  magentTolerance?: number;
-  onChange?: Function;
-}
 
 export default CircularSlider;
