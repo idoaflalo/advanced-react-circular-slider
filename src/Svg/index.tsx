@@ -1,4 +1,4 @@
-import { getFraction, getInteger } from "mapping/fractions";
+import { getFraction, getInteger } from "./../mapping/fractions";
 import React, { FC } from "react";
 
 const Svg: FC<Props> = ({

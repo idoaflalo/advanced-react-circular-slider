@@ -1,9 +1,9 @@
 @font-face {
-  font-family: "Telex";
+  font-family: "Fraction";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(fonts/Telex.ttf) format("truetype");
+  src: url(fonts/Fraction.ttf) format("truetype");
 }
 
 @keyframes pulse {
