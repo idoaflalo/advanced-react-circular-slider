@@ -14,9 +14,9 @@ const App = () => {
         labelTop="Spoons"
         labelBottom="TBSP"
         width={300}
-        min={0}
+        min={1}
         max={4}
-        step={0.1}
+        step={0.05}
         labelStep={0.5}
         onChange={console.log}
       ></CircularSlider>

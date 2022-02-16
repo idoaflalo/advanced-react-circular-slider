@@ -1,15 +1,5 @@
+import { getFraction, getInteger } from "mapping/fractions";
 import React, { FC } from "react";
-
-function convertToFraction(value) {
-  const valueStr = value.toString();
-  if (valueStr === "0.25") return "¼";
-  if (valueStr === "0.5") return "½";
-  if (valueStr === "0.75") return "¾";
-  if (valueStr.endsWith(".25")) return Math.floor(value) + "¼";
-  if (valueStr.endsWith(".5")) return Math.floor(value) + "½";
-  if (valueStr.endsWith(".75")) return Math.floor(value) + "¾";
-  return valueStr;
-}
 
 const Svg: FC<Props> = ({
   width,
@@ -61,12 +51,12 @@ const Svg: FC<Props> = ({
       fill: roundLabelColor,
       cursor: "pointer",
       userSelect: "none",
-      fontFamily: "Telex",
+      fontFamily: "Fraction",
       transform: "rotate(180deg)",
       transformOrigin: "center",
     },
     title: {
-      opacity: 0.4,
+      opacity: 0.2,
       transition: "all 0.3s ease-out",
     },
     activedTitle: {
@@ -207,48 +197,60 @@ const Svg: FC<Props> = ({
         stroke="none"
       />
 
-      {data?.map((item, key) =>
-        item.showLabel ? (
-          <text style={styles.text} key={item.key}>
-            <textPath href="#circularLabels" startOffset={`${(angleUnit * key + angleUnit / 2 - offsetAngle) / 3.6}%`}>
-              <tspan style={{ ...styles.title, ...(activedItem && key === activedItem - 1 && styles.activedTitle) }} onClick={() => onLableClick(key + 1)}>
-                {convertToFraction(item.value)}
-              </tspan>
+      {data?.map((item, key, { length }) => {
+        const integer: number = getInteger(item.value);
+        const fraction: string | null = getFraction(item.value);
+        return item.showLabel ? (
+          <text style={{ ...styles.text, transform: `rotate(${angleUnit * key + angleUnit / 2 - offsetAngle}deg)` }} key={item.key}>
+            <textPath
+              href="#circularLabels"
+              startOffset={`${(angleUnit * ((length - 1) / 2) + angleUnit / 2 - offsetAngle) / 3.6}%`}
+              style={{ ...styles.title, ...(activedItem && key === activedItem - 1 && styles.activedTitle) }}
+              onClick={() => onLableClick(key + 1)}
+            >
+              {fraction ? (
+                <tspan>
+                  {integer === 0 && fraction ? "" : integer}
+                  {fraction}
+                </tspan>
+              ) : (
+                <tspan>{item.value}</tspan>
+              )}
             </textPath>
           </text>
-        ) : null,
-      )}
+        ) : null;
+      })}
     </svg>
   );
 };
 
 interface Props {
-  width: number,
-  limit: number,
-  label: string,
-  labelColor: string,
-  roundLabelColor: string,
-  roundLabelFontSize: string,
-  labelFontSize: string,
-  labelOffset: number,
-  activeLabelColor: string,
-  direction: number,
-  strokeDasharray: number,
-  strokeDashoffset: number,
-  progressColorFrom: string,
-  progressColorTo: string,
-  trackColor: string,
-  doubleLineColor: string| null,
-  doubleLineType: string,
-  progressSize: number,
-  trackSize: number,
-  svgFullPath: any,
-  radiansOffset: number,
-  progressLineCap: "butt" | "round" | "square" | "inherit" | undefined,
-  offsetAngle: number,
-  data: any[],
-  activedItem: number | null,
-  onLableClick: Function,
-};
+  width: number;
+  limit: number;
+  label: string;
+  labelColor: string;
+  roundLabelColor: string;
+  roundLabelFontSize: string;
+  labelFontSize: string;
+  labelOffset: number;
+  activeLabelColor: string;
+  direction: number;
+  strokeDasharray: number;
+  strokeDashoffset: number;
+  progressColorFrom: string;
+  progressColorTo: string;
+  trackColor: string;
+  doubleLineColor: string | null;
+  doubleLineType: string;
+  progressSize: number;
+  trackSize: number;
+  svgFullPath: any;
+  radiansOffset: number;
+  progressLineCap: "butt" | "round" | "square" | "inherit" | undefined;
+  offsetAngle: number;
+  data: any[];
+  activedItem: number | null;
+  onLableClick: Function;
+}
 
 export default Svg;

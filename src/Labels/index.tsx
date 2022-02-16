@@ -1,9 +1,11 @@
+import { getFraction, getInteger } from "mapping/fractions";
 import React, { FC } from "react";
 
 const Labels: FC<Props> = ({
   labelColor,
   secondaryLabelColor,
   labelBottom,
+  labelFontFamily,
   labelFontSize,
   valueFontSize,
   appendToValue,
@@ -26,7 +28,7 @@ const Labels: FC<Props> = ({
       alignItems: "center",
       userSelect: "none",
       color: labelColor,
-      fontFamily: `"Segoe UI", "Roboto"`,
+      fontFamily: labelFontFamily,
       zIndex: 1,
     },
 
@@ -63,9 +65,19 @@ const Labels: FC<Props> = ({
     },
 
     mainLabel: {
-      fontFamily: "Telex",
+      fontFamily: "Fraction",
+      display: "flex",
+      alignItems: "center",
     },
+
+    fraction: {
+      fontSize: `calc(${valueFontSize} + 2rem)`,
+      padding: "0 2px",
+    }
   };
+
+  const integer: number = getInteger(selected?.value);
+  const fraction: string | null = getFraction(selected?.value);
 
   return (
     <div style={{ ...styles.labels, ...(hideLabelValue && styles.hide) }}>
@@ -73,7 +85,19 @@ const Labels: FC<Props> = ({
       <div style={{ ...styles.value, ...(!labelBottom && styles.bottomMargin) }}>
         <code>
           <span style={styles.prepended}>{prependToValue}</span>
-          <span style={styles.mainLabel}>{selected?.value}</span>
+          {fraction ? (
+            <span style={styles.mainLabel}>
+              {integer === 0 && fraction ? "" : integer}
+              <span style={styles.fraction}>{fraction}</span>
+            </span>
+          ) : (
+            <span style={styles.mainLabel}>
+              <span style={styles.fraction}>{"‎"}</span>
+              {selected?.value}
+              <span style={styles.fraction}>{"‎"}</span>
+            </span>
+          )}
+
           {selected?.value !== undefined && <span style={styles.appended}>{appendToValue}</span>}
         </code>
       </div>
@@ -86,6 +110,7 @@ interface Props {
   labelColor: string;
   secondaryLabelColor: string;
   labelBottom: string;
+  labelFontFamily: string;
   labelFontSize: string;
   valueFontSize: string;
   appendToValue: string;

@@ -24,6 +24,7 @@ export interface CircularSliderProps {
   secondaryLabelColor?: string;
   roundLabelColor?: string;
   labelBottom?: string;
+  labelFontFamily?: string;
   labelFontSize?: string;
   roundLabelFontSize?: string;
   valueFontSize?: string;
