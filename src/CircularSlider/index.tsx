@@ -285,7 +285,7 @@ const CircularSlider: FC<CircularSliderProps> = ({
       position: "relative",
       display: "inline-block",
       opacity: 0,
-      transition: "opacity 1s ease-in",
+      transition: "opacity 0.2s ease-in",
       margin: `${labelOffset + 25}px`,
       maxWidth: `${width}px`,
     },
