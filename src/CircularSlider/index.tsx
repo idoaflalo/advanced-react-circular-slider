@@ -235,6 +235,7 @@ const CircularSlider: FC<CircularSliderProps> = ({
   useEffect(() => {
     const data = state.data.length ? [...state.data] : [...generateRange(min, max, step, labelStep)];
     const [firstItem] = data;
+    onChange(firstItem);
     dispatch({
       type: "init",
       payload: {
