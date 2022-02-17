@@ -61,7 +61,6 @@ const Svg: FC<Props> = ({
     },
     activedTitle: {
       fill: activeLabelColor,
-      fontWeight: "bold",
       opacity: 1,
       fontSize: `calc(${roundLabelFontSize} + 0.2rem)`,
     },
@@ -201,23 +200,25 @@ const Svg: FC<Props> = ({
         const integer: number = getInteger(item.value);
         const fraction: string | null = getFraction(item.value);
         return item.showLabel ? (
-          <text style={{ ...styles.text, transform: `rotate(${angleUnit * key + angleUnit / 2 - offsetAngle}deg)` }} key={item.key}>
-            <textPath
-              href="#circularLabels"
-              startOffset={`${(angleUnit * ((length - 1) / 2) + angleUnit / 2 - offsetAngle) / 3.6}%`}
-              style={{ ...styles.title, ...(activedItem && key === activedItem - 1 && styles.activedTitle) }}
-              onClick={() => onLableClick(key + 1)}
-            >
-              {fraction ? (
-                <tspan>
-                  {integer === 0 && fraction ? "" : integer}
-                  {fraction}
-                </tspan>
-              ) : (
-                <tspan>{item.value}</tspan>
-              )}
-            </textPath>
-          </text>
+          <g style={{ ...styles.text, transform: `rotate(${angleUnit * key + angleUnit / 2 - offsetAngle}deg)` }} key={item.key}>
+            <text>
+              <textPath
+                href="#circularLabels"
+                startOffset={`${(angleUnit * ((length - 1) / 2) + angleUnit / 2 - offsetAngle) / 3.6}%`}
+                style={{ ...styles.title, ...(activedItem && key === activedItem - 1 && styles.activedTitle) }}
+                onClick={() => onLableClick(key + 1)}
+              >
+                {fraction ? (
+                  <tspan>
+                    {integer === 0 && fraction ? "" : integer}
+                    {fraction}
+                  </tspan>
+                ) : (
+                  <tspan>{item.value}</tspan>
+                )}
+              </textPath>
+            </text>
+          </g>
         ) : null;
       })}
     </svg>

@@ -14,14 +14,8 @@ const generateRange = (min: number, max: number, step: number, labelStep: number
 const data = [...generateRange(0.1, 1, 0.1, 0.1), ...generateRange(1.5, 10, 0.5, 2)];
 
 const App = () => {
-  const styles = {
-    slider: {
-      padding: "2rem",
-    },
-  };
-
   return (
-    <div style={styles.slider}>
+    <div>
       <CircularSlider
         labelTop="Spoons"
         labelBottom="TBSP"

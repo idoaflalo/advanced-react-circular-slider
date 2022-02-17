@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/advanced-react-circular-slider/static/css/main.b486cb42.chunk.css",
-    "main.js": "/advanced-react-circular-slider/static/js/main.6f228079.chunk.js",
-    "main.js.map": "/advanced-react-circular-slider/static/js/main.6f228079.chunk.js.map",
+    "main.js": "/advanced-react-circular-slider/static/js/main.b2618872.chunk.js",
+    "main.js.map": "/advanced-react-circular-slider/static/js/main.b2618872.chunk.js.map",
     "runtime-main.js": "/advanced-react-circular-slider/static/js/runtime-main.32f813b8.js",
     "runtime-main.js.map": "/advanced-react-circular-slider/static/js/runtime-main.32f813b8.js.map",
     "static/js/2.0ffc5137.chunk.js": "/advanced-react-circular-slider/static/js/2.0ffc5137.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.32f813b8.js",
     "static/js/2.0ffc5137.chunk.js",
     "static/css/main.b486cb42.chunk.css",
-    "static/js/main.6f228079.chunk.js"
+    "static/js/main.b2618872.chunk.js"
   ]
 }
