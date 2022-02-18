@@ -251,6 +251,7 @@ const CircularSlider: FC<CircularSliderProps> = ({
 
   useEffect(() => {
     setActived(dataIndex);
+    updateState(Math.random())
   }, [dataIndex]);
 
   // Set knob position
@@ -281,7 +282,7 @@ const CircularSlider: FC<CircularSliderProps> = ({
     }
 
     // eslint-disable-next-line
-  }, [state.dashFullArray, state.knobPosition, state.data.length, direction, updatedKey, activedItem]);
+  }, [state.dashFullArray, state.knobPosition, state.data.length, direction, updatedKey]);
 
   const sanitizedLabel = labelTop.replace(/[\W_]/g, "_");
 
