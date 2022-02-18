@@ -250,10 +250,8 @@ const CircularSlider: FC<CircularSliderProps> = ({
   }, [max, min]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setActived(dataIndex);
-      updateState(Math.random());
-    }, 0);
+    setActived(dataIndex);
+    updateState(Math.random())
   }, [dataIndex]);
 
   // Set knob position
