@@ -137,7 +137,7 @@ const CircularSlider: FC<CircularSliderProps> = ({
 
       let newDegree = degrees + limit - offsetAngle;
       newDegree = newDegree > 360 ? newDegree - 360 : newDegree;
-      let pt = (svgFullPath.current).getPointAtLength((newDegree * state.dashFullArray) / 360);
+      let pt = svgFullPath.current.getPointAtLength((newDegree * state.dashFullArray) / 360);
       pt.x = Math.round(pt.x);
       pt.y = Math.round(pt.y);
 
@@ -153,7 +153,7 @@ const CircularSlider: FC<CircularSliderProps> = ({
       if (Math.abs(closestPointDegrees - degrees) <= magentTolerance && state.data[currentPoint - 1]?.showLabel) {
         newDegree = closestPointDegrees + limit - offsetAngle;
         newDegree = newDegree > 360 ? newDegree - 360 : newDegree;
-        pt = (svgFullPath.current).getPointAtLength((newDegree * state.dashFullArray) / 360);
+        pt = svgFullPath.current.getPointAtLength((newDegree * state.dashFullArray) / 360);
         pt.x = Math.round(pt.x);
         pt.y = Math.round(pt.y);
         dashOffset = (closestPointDegrees / spreadDegrees) * state.dashFullArray;
@@ -249,6 +249,10 @@ const CircularSlider: FC<CircularSliderProps> = ({
     // eslint-disable-next-line
   }, [max, min]);
 
+  useEffect(() => {
+    setActived(dataIndex);
+  }, [dataIndex]);
+
   // Set knob position
   useEffect(() => {
     let updatedIndex = activedItem === null ? dataIndex : activedItem;
@@ -277,7 +281,7 @@ const CircularSlider: FC<CircularSliderProps> = ({
     }
 
     // eslint-disable-next-line
-  }, [state.dashFullArray, state.knobPosition, state.data.length, dataIndex, direction, updatedKey]);
+  }, [state.dashFullArray, state.knobPosition, state.data.length, direction, updatedKey, activedItem]);
 
   const sanitizedLabel = labelTop.replace(/[\W_]/g, "_");
 
